@@ -84,7 +84,7 @@ h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;}
 .nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;}
 .nav-logo-mark{
   width:46px;height:46px;border-radius:12px;
-  background:#060e1f;
+  background:#ffffff;
   display:flex;align-items:center;justify-content:center;
   position:relative;
   overflow:hidden;
@@ -788,17 +788,35 @@ h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;}
    PROTOTYPE EMBED
 ──────────────────────────────────────────*/
 #prototype{background:var(--surface);}
-.prototype-frame{
-  background:var(--navy);border-radius:48px;display:inline-block;padding:.6rem;
-  box-shadow:0 40px 80px rgba(11,29,58,.2);
-  transition:transform .3s,box-shadow .3s;
-  max-width:calc(100vw - 2rem);
+/* ── Prototype scroll wrapper — mirrors reference site ── */
+.prototype-scroll-wrap{
+  display:flex;
+  justify-content:center;
+  overflow-x:auto;
+  padding-bottom:1rem;
+  -ms-overflow-style:none;
+  scrollbar-width:none;
 }
-.prototype-frame:hover{transform:translateY(-4px);box-shadow:0 56px 100px rgba(11,29,58,.3);}
+.prototype-scroll-wrap::-webkit-scrollbar{display:none;}
+
+.prototype-frame{
+  background:var(--navy);
+  border-radius:48px;
+  display:inline-block;
+  padding:12px;
+  box-shadow:0 25px 50px rgba(0,0,0,.5);
+  transition:transform .3s,box-shadow .3s;
+  flex-shrink:0;
+}
+.prototype-frame:hover{transform:translateY(-4px);box-shadow:0 40px 70px rgba(0,0,0,.55);}
 .prototype-frame iframe{
-  border-radius:40px;border:none;display:block;
-  overflow-y:auto;
-  max-width:100%;
+  width:390px;
+  height:844px;
+  border:none;
+  border-radius:36px;
+  display:block;
+  background:#fff;
+  box-shadow:0 4px 6px rgba(0,0,0,.1);
 }
 
 /* ─────────────────────────────────────────
@@ -961,9 +979,7 @@ footer{
   .roadmap-track{grid-template-columns:1fr 1fr;}
   .metrics-grid{grid-template-columns:1fr 1fr;}
 
-  /* Prototype */
-  .prototype-frame{padding:.4rem;}
-  .prototype-frame iframe{width:300px;height:620px;}
+  /* Prototype — scroll wrapper handles small screens, frame stays full size */
 
   /* CTA buttons wrap */
   .cta-btns{flex-direction:column;align-items:center;}
@@ -1057,8 +1073,7 @@ footer{
   .risk-item{flex-wrap:wrap;gap:.5rem;}
   .risk-sev{flex-shrink:0;}
 
-  /* Prototype */
-  .prototype-frame iframe{width:270px;height:560px;}
+  /* Prototype — horizontal scroll handles all small screens */
 
   /* CTA */
   .cta-h{font-size:1.6rem;}
@@ -1101,7 +1116,7 @@ footer{
   .nav-logo-mark{width:34px;height:34px;}
   .nav-logo-mark img{width:34px;height:34px;}
   .strip-n{font-size:1.35rem;}
-  .prototype-frame iframe{width:240px;height:500px;}
+  /* Prototype — horizontal scroll, no resize needed */
   .cta-h{font-size:1.35rem;}
   .role-quote-card blockquote{font-size:.82rem;}
   .modal-body iframe{height:65vh;}
@@ -1188,7 +1203,7 @@ footer{
     <div>
       <div class="hero-badge"><span class="hero-badge-dot"></span>Urban Mobility · PM Portfolio · Bangladesh</div>
       <h1 class="hero-h1">
-         One app for<br><span class="accent">everyday comute</span>
+       One app for<br><span class="accent">everyday comute</span>
       </h1>
       <p class="hero-sub">Multimodal route planning, AI traffic intelligence, SOS safety, integrated MFS payments, and vehicle management — all in a single platform built for Bangladesh.</p>
       <div class="hero-btns">
@@ -1330,9 +1345,9 @@ footer{
         <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A9BFF" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M6 7V5a2 2 0 014 0v2M14 7V5a2 2 0 014 0v2"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="17.5" cy="18" r="1.5"/></svg></div>
         <div class="frag-info"><b>City Bus / BRTC</b><small>~30% modal share in Dhaka</small></div><span class="frag-badge">No unified app</span>
       </div>
-       <div class="frag-row">
+      <div class="frag-row">
         <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFB800" stroke-width="1.8" stroke-linecap="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M15 6l-3 5H8l-3 6M10 6h5l3 5"/></svg></div>
-        <div class="frag-info"><b>Bike Ride-hailing</b><small>Pathao (60–70% market), Uber</small></div><span class="frag-badge">2 Apps</span>
+        <div class="frag-info"><b>Bike Ride-hailing</b><small>Pathao holds 60–70% market</small></div><span class="frag-badge">Pathao / Shohoz</span>
       </div>
       <div class="frag-row">
         <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v5h-2"/><circle cx="15.5" cy="18.5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/></svg></div>
@@ -1724,8 +1739,10 @@ footer{
     <div class="eyebrow" style="justify-content:center;">Interactive Prototype</div>
     <h2 class="section-title" style="text-align:center;">Try the <em>interactive prototype</em></h2>
     <p class="section-sub" style="text-align:center;margin:0 auto 2rem;max-width:460px;">Click through the real Figma prototype — covering Move Easy, SOS Services, and Proyan Wallet core flows.</p>
-    <div id="phone-mockup" class="prototype-frame">
-      <iframe src="https://earth-east-81327686.figma.site" width="390" height="780" style="border-radius:40px;border:none;display:block;" title="Proyan Interactive Prototype" allowfullscreen></iframe>
+    <div class="prototype-scroll-wrap">
+      <div id="phone-mockup" class="prototype-frame">
+        <iframe src="https://earth-east-81327686.figma.site" width="390" height="844" style="border-radius:36px;border:none;display:block;background:#fff;" title="Proyan Interactive Prototype" allowfullscreen></iframe>
+      </div>
     </div>
     <p style="font-size:.78rem;color:var(--text-soft);margin-top:1rem;">
       Interactive prototype on Figma ·
@@ -1783,7 +1800,7 @@ footer{
       </button>
     </div>
     <div class="modal-body" style="flex:1;overflow:auto;">
-      <iframe src="./prd.pdf" width="100%" height="700" style="min-height:60vh;" title="Proyan PRD"></iframe>
+      <iframe id="prdFrame" src="" width="100%" height="700" style="min-height:60vh;" title="Proyan PRD"></iframe>
     </div>
   </div>
 </div>
@@ -1921,9 +1938,25 @@ window.addEventListener('scroll', () => {
 function closeModal(id) {
   document.getElementById(id).classList.remove('open');
   document.body.style.overflow = '';
+  /* Clear PRD iframe src on close so it never pre-loads or triggers app redirects */
+  if (id === 'prdModal') {
+    document.getElementById('prdFrame').src = '';
+  }
 }
 
 function openPRD() {
+  /* Detect if PDF can render inline — mobile in-app browsers (WhatsApp, Messenger)
+     will try to open PDF in an external app. Use Google Docs viewer as safe fallback. */
+  const isMobileInApp = /FBAN|FBAV|Instagram|WhatsApp|Messenger|Twitter|LinkedInApp/i.test(navigator.userAgent);
+  const pdfPath = './prd.pdf';
+  const frame = document.getElementById('prdFrame');
+  if (isMobileInApp) {
+    /* Google Docs viewer renders PDF in-browser without triggering app redirects */
+    const absolute = new URL(pdfPath, window.location.href).href;
+    frame.src = 'https://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(absolute);
+  } else {
+    frame.src = pdfPath;
+  }
   document.getElementById('prdModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
