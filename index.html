@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyan · প্রয়ান — Urban Mobility for Bangladesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="./logo.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./logo.png">
+<link rel="apple-touch-icon" href="./logo.png">
+<style>
+/* ── TOKENS ── */
+:root{
+  --navy:#0B1D3A;
+  --navy-mid:#112244;
+  --navy-light:#1A3260;
+  --navy-card:#0F2040;
+  --blue:#1C5FBE;
+  --blue-bright:#2470D8;
+  --blue-accent:#4A9BFF;
+  --blue-glow:rgba(36,112,216,.18);
+  --teal:#00C8B0;
+  --white:#FFFFFF;
+  --w90:rgba(255,255,255,.9);
+  --w70:rgba(255,255,255,.7);
+  --w50:rgba(255,255,255,.5);
+  --w25:rgba(255,255,255,.25);
+  --w12:rgba(255,255,255,.12);
+  --w06:rgba(255,255,255,.06);
+  --surface:#F3F7FF;
+  --surface2:#E8EFFC;
+  --border:#D8E4F5;
+  --text:#0B1D3A;
+  --text-mid:#3A4D6A;
+  --text-soft:#6B82A0;
+  --green:#00C896;
+  --orange:#FF6B35;
+  --yellow:#FFB800;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--white);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--navy);}
+::-webkit-scrollbar-thumb{background:var(--teal);border-radius:3px;}
+
+/* ── PROGRESS BAR ── */
+#progress-bar{
+  position:fixed;top:0;left:0;z-index:1000;
+  height:3px;width:0%;
+  background:linear-gradient(90deg,var(--blue-bright),var(--teal));
+  transition:width .1s linear;
+  box-shadow:0 0 10px rgba(0,200,176,.5);
+}
+
+/* ── NAV ── */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:.8rem 1.5rem;
+  transition:all .3s;
+}
+#navbar.scrolled{background:rgba(11,29,58,.97);backdrop-filter:blur(20px);box-shadow:0 4px 20px rgba(0,0,0,.3);}
+.nav-inner{
+  max-width:1160px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(11,29,58,.9);backdrop-filter:blur(20px);
+  border:1px solid var(--w12);
+  border-radius:14px;padding:.7rem 1.5rem;
+}
+.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.nav-logo-mark{
+  width:46px;height:46px;border-radius:12px;
+  background:#060e1f;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  overflow:hidden;
+  flex-shrink:0;
+  box-shadow:0 0 0 1.5px var(--w12);
+}
+.nav-logo-mark::after{
+  content:'';position:absolute;top:-2px;right:-2px;
+  width:7px;height:7px;border-radius:50%;
+  background:var(--teal);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
+.nav-logo-text{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;color:var(--white);}
+.nav-logo-bn{font-family:'Noto Sans Bengali',sans-serif;font-size:.72rem;color:var(--teal);font-weight:600;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{
+  font-size:.8rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--w50);text-decoration:none;transition:color .2s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;width:0;height:1.5px;
+  background:var(--teal);transition:width .3s ease;
+}
+.nav-links a:hover{color:var(--white);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta-group{display:flex;gap:.6rem;align-items:center;}
+.btn-teal{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--teal);color:var(--navy);
+  padding:.5rem 1.1rem;border-radius:8px;
+  font-size:.78rem;font-weight:700;text-decoration:none;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 3px 12px rgba(0,200,176,.3);
+}
+.btn-teal:hover{background:#00b09a;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,200,176,.4);}
+.btn-nav-outline{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:transparent;color:var(--w70);
+  padding:.5rem 1.1rem;border-radius:8px;
+  font-size:.78rem;font-weight:500;text-decoration:none;
+  border:1px solid var(--w25);transition:border-color .2s,color .2s,background .2s;
+}
+.btn-nav-outline:hover{border-color:var(--w70);color:var(--white);background:var(--w06);}
+.hamburger{background:none;border:none;cursor:pointer;color:var(--w70);padding:.3rem;}
+
+/* ── MOBILE MENU ── */
+#mobileMenu{
+  position:fixed;inset:0;z-index:950;
+  background:var(--navy);
+  transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  padding:2rem;
+}
+#mobileMenu.open{transform:translateX(0);}
+.mob-nav-close{background:none;border:none;cursor:pointer;color:var(--white);margin-bottom:2.5rem;display:block;}
+.mob-nav-links{display:flex;flex-direction:column;gap:1.5rem;}
+.mob-nav-links a{
+  font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;
+  color:var(--white);text-decoration:none;opacity:.8;
+  transition:opacity .2s,color .2s,transform .2s;
+  display:inline-block;
+}
+.mob-nav-links a:hover{opacity:1;color:var(--teal);transform:translateX(8px);}
+.mob-nav-footer{margin-top:3rem;display:flex;flex-direction:column;gap:.8rem;}
+
+/* ── LAYOUT HELPERS ── */
+.section-wrap{padding:5.5rem 1.5rem;}
+.max-w{max-width:1160px;margin:0 auto;}
+.bg-navy{background:var(--navy);}
+.bg-surface{background:var(--surface);}
+.bg-white-sec{background:var(--white);}
+
+.eyebrow{
+  font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:.75rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.eyebrow::before{content:'';display:inline-block;width:18px;height:2px;background:var(--teal);border-radius:2px;}
+.eyebrow-dark{color:var(--blue-accent);}
+.eyebrow-dark::before{background:var(--blue-accent);}
+
+.section-title{
+  font-size:clamp(1.8rem,3vw,2.7rem);font-weight:800;line-height:1.12;letter-spacing:-.025em;
+  color:var(--navy);margin-bottom:.9rem;
+}
+.section-title em{font-style:normal;color:var(--blue-bright);}
+.dark .section-title,.section-title.light{color:var(--white);}
+.section-title em.light{color:var(--teal);}
+.section-sub{font-size:.97rem;color:var(--text-soft);line-height:1.75;max-width:560px;}
+.dark .section-sub{color:var(--w50);}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);
+}
+.reveal.on{opacity:1;transform:translateY(0);}
+.reveal.d1{transition-delay:.08s;}
+.reveal.d2{transition-delay:.16s;}
+.reveal.d3{transition-delay:.24s;}
+.reveal.d4{transition-delay:.32s;}
+.reveal.d5{transition-delay:.40s;}
+
+/* clip reveal for cards */
+.clip-reveal{
+  opacity:0;
+  clip-path:inset(0 0 100% 0);
+  transform:translateY(12px);
+  transition:opacity .6s ease,clip-path .6s cubic-bezier(.22,.61,.36,1),transform .6s ease;
+}
+.clip-reveal.on{opacity:1;clip-path:inset(0 0 0% 0);transform:translateY(0);}
+
+/* ── BUTTONS ── */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:var(--teal);color:var(--navy);
+  padding:.82rem 1.8rem;border-radius:10px;
+  font-size:.9rem;font-weight:700;text-decoration:none;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 4px 18px rgba(0,200,176,.3);
+}
+.btn-primary:hover{background:#00b09a;transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,200,176,.4);}
+.btn-outline-white{
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:transparent;color:var(--white);
+  padding:.82rem 1.8rem;border-radius:10px;
+  font-size:.9rem;font-weight:500;text-decoration:none;
+  border:1.5px solid var(--w25);transition:border-color .2s,background .2s;
+}
+.btn-outline-white:hover{border-color:var(--w70);background:var(--w06);}
+.btn-blue{
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:var(--blue-bright);color:var(--white);
+  padding:.82rem 1.8rem;border-radius:10px;
+  font-size:.9rem;font-weight:600;text-decoration:none;
+  box-shadow:0 4px 18px rgba(36,112,216,.35);
+  transition:background .2s,transform .15s;
+}
+.btn-blue:hover{background:var(--blue-accent);transform:translateY(-1px);}
+
+/* ─────────────────────────────────────────
+   HERO
+──────────────────────────────────────────*/
+#hero{
+  min-height:100vh;
+  background:var(--navy);
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  padding-top:5rem;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(36,112,216,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(36,112,216,.08) 1px,transparent 1px);
+  background-size:64px 64px;
+  animation:gridShift 20s linear infinite;
+}
+@keyframes gridShift{from{background-position:0 0;}to{background-position:64px 64px;}}
+
+.hero-glow1{
+  position:absolute;top:-15%;right:-5%;width:680px;height:680px;
+  background:radial-gradient(circle,rgba(0,200,176,.14) 0%,transparent 65%);
+  pointer-events:none;
+  animation:floatOrb 8s ease-in-out infinite;
+}
+.hero-glow2{
+  position:absolute;bottom:-10%;left:-5%;width:480px;height:480px;
+  background:radial-gradient(circle,rgba(36,112,216,.12) 0%,transparent 65%);
+  pointer-events:none;
+  animation:floatOrb 11s ease-in-out infinite reverse;
+}
+@keyframes floatOrb{
+  0%,100%{transform:translate(0,0);}
+  33%{transform:translate(20px,-30px);}
+  66%{transform:translate(-15px,20px);}
+}
+.hero-inner{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  max-width:1160px;margin:0 auto;width:100%;padding:2rem 1.5rem 4rem;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(0,200,176,.12);border:1px solid rgba(0,200,176,.3);
+  border-radius:99px;padding:.35rem 1rem;
+  font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:1.5rem;
+  opacity:0;animation:fadeUp .7s .1s forwards;
+}
+.hero-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+.hero-h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(2.5rem,4.5vw,4rem);
+  font-weight:800;line-height:1.07;letter-spacing:-.03em;
+  color:var(--white);margin-bottom:1.3rem;
+  opacity:0;animation:fadeUp .7s .25s forwards;
+}
+.hero-h1 .accent{color:var(--teal);}
+.hero-h1 .bn{
+  font-family:'Noto Sans Bengali',sans-serif;
+  font-size:.6em;color:var(--w50);display:block;font-weight:600;
+  letter-spacing:0;
+}
+.hero-sub{
+  font-size:1.02rem;color:var(--w70);line-height:1.75;max-width:490px;
+  margin-bottom:2rem;
+  opacity:0;animation:fadeUp .7s .4s forwards;
+}
+.hero-btns{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .7s .55s forwards;
+}
+.hero-trust{
+  display:flex;align-items:center;gap:1.5rem;margin-top:2.5rem;
+  opacity:0;animation:fadeUp .7s .7s forwards;flex-wrap:wrap;
+}
+.hero-trust-item{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--w50);}
+.hero-trust-item strong{color:var(--w90);font-weight:600;}
+
+/* App mockup with float animation */
+.hero-right{
+  opacity:0;animation:fadeIn 1s .5s forwards;
+}
+.app-frame{
+  background:var(--navy-card);
+  border:1px solid var(--w12);border-radius:24px;
+  overflow:hidden;max-width:340px;margin:0 auto;
+  box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px var(--w06);
+  animation:phoneFloat 6s ease-in-out infinite;
+}
+@keyframes phoneFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
+}
+.app-statusbar{
+  padding:.6rem 1.2rem;display:flex;justify-content:space-between;align-items:center;
+  background:rgba(0,0,0,.2);
+}
+.app-statusbar span{font-size:.7rem;color:var(--w50);font-family:'JetBrains Mono',monospace;}
+.app-content{padding:1.2rem;}
+.app-search{
+  background:var(--w06);border:1px solid var(--w12);
+  border-radius:10px;padding:.7rem 1rem;
+  display:flex;align-items:center;gap:.5rem;
+  margin-bottom:1.2rem;
+}
+.app-search span{font-size:.8rem;color:var(--w50);}
+.typing-cursor::after{
+  content:'|';color:var(--teal);animation:blink .8s infinite;margin-left:1px;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.live-badge{
+  display:inline-flex;align-items:center;gap:.3rem;
+  background:rgba(0,200,176,.12);border:1px solid rgba(0,200,176,.25);
+  border-radius:6px;padding:.2rem .6rem;
+  font-size:.65rem;font-weight:600;color:var(--teal);margin-bottom:1rem;
+}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pulse 1.5s infinite;}
+.app-map{border-radius:12px;overflow:hidden;margin-bottom:1.2rem;position:relative;}
+.alert-float{
+  position:absolute;bottom:8px;left:8px;right:8px;
+  background:rgba(11,29,58,.9);border:1px solid rgba(255,107,53,.3);
+  border-radius:8px;padding:.5rem .8rem;
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.68rem;color:var(--w70);
+  animation:alertSlide 4s ease infinite;
+}
+@keyframes alertSlide{
+  0%,85%,100%{transform:translateY(0);opacity:1;}
+  90%{transform:translateY(4px);opacity:.7;}
+}
+.alert-float-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;animation:pulse 1.5s infinite;}
+.mode-pills{display:flex;gap:.4rem;flex-wrap:wrap;}
+.pill{
+  display:flex;align-items:center;gap:.3rem;
+  background:var(--w06);border:1px solid var(--w12);
+  border-radius:7px;padding:.28rem .6rem;
+  font-size:.68rem;font-weight:600;color:var(--w70);
+  transition:background .2s,border-color .2s,color .2s;
+}
+.pill.active{background:rgba(0,200,176,.15);border-color:rgba(0,200,176,.3);color:var(--teal);}
+.pill:hover{background:rgba(0,200,176,.1);border-color:rgba(0,200,176,.2);color:var(--teal);cursor:pointer;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+.scroll-cue{
+  position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.35rem;
+  font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--w25);
+  opacity:0;animation:fadeIn 1s 1.6s forwards;
+}
+.scroll-mouse{width:17px;height:26px;border:1.5px solid var(--w25);border-radius:8px;position:relative;}
+.scroll-mouse::after{
+  content:'';position:absolute;top:4px;left:50%;transform:translateX(-50%);
+  width:2px;height:5px;background:var(--teal);border-radius:2px;
+  animation:bob 1.8s infinite;
+}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
+
+/* ─────────────────────────────────────────
+   STATS STRIP  — animated counters
+──────────────────────────────────────────*/
+.stats-strip{
+  background:var(--blue-bright);
+  padding:1.8rem 1.5rem;
+  position:relative;overflow:hidden;
+}
+.stats-strip::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent);
+  animation:shimmer 3s linear infinite;
+}
+@keyframes shimmer{from{transform:translateX(-100%);}to{transform:translateX(100%);}}
+.stats-strip-inner{
+  max-width:1160px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;gap:2rem;
+  flex-wrap:wrap;position:relative;
+}
+.strip-item{text-align:center;flex:1;min-width:140px;}
+.strip-n{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.9rem;font-weight:800;color:var(--white);
+  letter-spacing:-.03em;display:block;line-height:1;
+}
+.strip-l{font-size:.74rem;color:rgba(255,255,255,.7);margin-top:.25rem;line-height:1.35;}
+.strip-div{width:1px;height:36px;background:rgba(255,255,255,.2);flex-shrink:0;}
+
+/* ─────────────────────────────────────────
+   MY ROLE
+──────────────────────────────────────────*/
+#my-role .role-grid{
+  display:grid;grid-template-columns:1fr 1.1fr;gap:4rem;align-items:start;
+}
+.timeline{display:flex;flex-direction:column;position:relative;margin-top:2rem;}
+.timeline::before{
+  content:'';position:absolute;left:17px;top:0;bottom:0;width:2px;
+  background:var(--border);
+}
+.timeline::after{
+  content:'';position:absolute;left:17px;top:0;width:2px;height:0;
+  background:linear-gradient(to bottom,var(--teal),var(--blue-bright));
+  transition:height 1.5s cubic-bezier(.22,.61,.36,1);
+}
+.timeline.animate::after{height:100%;}
+.tl-step{display:flex;gap:1rem;padding:1rem 0;}
+.tl-dot{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--blue-bright);color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:800;flex-shrink:0;
+  position:relative;z-index:1;
+  box-shadow:0 0 0 4px var(--surface);
+  transition:transform .2s,box-shadow .2s;
+}
+.tl-step:hover .tl-dot{transform:scale(1.15);box-shadow:0 0 0 6px rgba(0,200,176,.2);}
+.tl-step h4{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:.2rem;}
+.tl-step p{font-size:.82rem;color:var(--text-soft);line-height:1.65;}
+
+.role-quote-card{
+  background:var(--navy);border-radius:16px;padding:2.5rem;
+  position:relative;overflow:hidden;
+}
+.role-quote-card::before{
+  content:'';position:absolute;top:-40%;right:-10%;
+  width:350px;height:350px;
+  background:radial-gradient(circle,rgba(0,200,176,.12) 0%,transparent 65%);
+  animation:floatOrb 10s ease-in-out infinite;
+}
+.role-quote-card blockquote{
+  font-size:1.02rem;font-style:italic;line-height:1.75;
+  color:var(--w90);position:relative;z-index:1;margin-bottom:1.2rem;
+}
+.role-quote-card cite{font-size:.73rem;font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--w12);border-radius:10px;overflow:hidden;margin-top:1.5rem;}
+.kpi-cell{
+  background:rgba(255,255,255,.04);padding:1.2rem;text-align:center;
+  transition:background .2s;
+}
+.kpi-cell:hover{background:rgba(0,200,176,.06);}
+.kpi-n{font-family:'Space Grotesk',sans-serif;font-size:1.65rem;font-weight:800;color:var(--teal);display:block;line-height:1;letter-spacing:-.03em;}
+.kpi-l{font-size:.7rem;color:var(--w50);font-weight:500;margin-top:.25rem;line-height:1.4;}
+
+/* ─────────────────────────────────────────
+   PROBLEM
+──────────────────────────────────────────*/
+#problem .problem-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.problem-card{
+  background:var(--white);border:1.5px solid var(--border);border-radius:16px;
+  padding:1.8rem;
+  transition:transform .3s cubic-bezier(.22,.61,.36,1),box-shadow .3s,border-color .3s;
+  will-change:transform;
+}
+.problem-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(36,112,216,.12);border-color:var(--blue-bright);}
+.pc-icon{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1rem;
+  transition:transform .3s;
+}
+.problem-card:hover .pc-icon{transform:scale(1.1) rotate(-3deg);}
+.pc-icon.red{background:rgba(255,80,80,.1);}
+.pc-icon.yellow{background:rgba(255,184,0,.1);}
+.pc-icon.blue{background:rgba(36,112,216,.1);}
+.problem-card h3{font-weight:700;font-size:.97rem;margin-bottom:.5rem;color:var(--navy);}
+.problem-card p{font-size:.84rem;color:var(--text-soft);line-height:1.65;}
+.pc-stat{display:inline-block;margin-top:.8rem;font-size:.7rem;font-weight:700;padding:.25rem .7rem;border-radius:5px;}
+.pc-stat.red{background:rgba(255,80,80,.1);color:#E55;}
+.pc-stat.yellow{background:rgba(255,184,0,.12);color:#C90;}
+.pc-stat.blue{background:rgba(36,112,216,.1);color:var(--blue-bright);}
+
+/* frag table */
+.frag-table{
+  background:var(--navy-card);border:1px solid var(--w12);border-radius:16px;overflow:hidden;
+  margin-top:2.5rem;
+}
+.frag-head{
+  display:flex;justify-content:space-between;padding:.65rem 1.4rem;
+  background:rgba(36,112,216,.12);border-bottom:1px solid var(--w06);
+}
+.frag-head span{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--w50);}
+.frag-row{
+  display:flex;align-items:center;padding:.85rem 1.4rem;
+  border-bottom:1px solid var(--w06);transition:background .2s,transform .2s;
+  cursor:default;
+}
+.frag-row:last-child{border-bottom:none;}
+.frag-row:hover{background:var(--w06);transform:translateX(4px);}
+.frag-ico{
+  width:34px;height:34px;border-radius:7px;background:var(--w06);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:.9rem;
+}
+.frag-info{flex:1;}
+.frag-info b{display:block;font-size:.83rem;color:var(--w90);font-weight:600;}
+.frag-info small{font-size:.7rem;color:var(--w50);}
+.frag-badge{
+  font-size:.65rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:.22rem .6rem;border-radius:4px;white-space:nowrap;
+  background:var(--w06);color:var(--w50);
+}
+.frag-badge.proyan{background:rgba(0,200,176,.15);color:var(--teal);}
+
+/* ─────────────────────────────────────────
+   SOLUTION
+──────────────────────────────────────────*/
+#solution .fp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.5rem;}
+.fp-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:14px;
+  padding:1.5rem;transition:all .3s cubic-bezier(.22,.61,.36,1);display:flex;gap:1.1rem;
+}
+.fp-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,200,176,.1);border-color:var(--teal);}
+.fp-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:rgba(0,200,176,.1);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .2s,transform .2s;
+}
+.fp-card:hover .fp-icon{background:rgba(0,200,176,.18);transform:scale(1.08);}
+.fp-card h3{font-size:.92rem;font-weight:700;margin-bottom:.25rem;color:var(--navy);}
+.fp-card .fp-prob{font-size:.78rem;color:var(--text-soft);line-height:1.5;margin-bottom:.3rem;}
+.fp-card .fp-sol{font-size:.8rem;color:var(--text-mid);line-height:1.55;}
+.fp-card .fp-sol strong{color:var(--blue-bright);font-weight:600;}
+
+/* ─────────────────────────────────────────
+   FEATURES DEEP-DIVE
+──────────────────────────────────────────*/
+#features .feat-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;
+  background:var(--w12);border:1px solid var(--w12);border-radius:16px;overflow:hidden;
+  margin-top:2.5rem;
+}
+.feat-cell{
+  background:var(--navy-card);padding:2rem 1.8rem;
+  transition:background .3s;
+  position:relative;overflow:hidden;
+}
+.feat-cell::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--teal),var(--blue-bright));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s cubic-bezier(.22,.61,.36,1);
+}
+.feat-cell:hover{background:rgba(0,200,176,.05);}
+.feat-cell:hover::before{transform:scaleX(1);}
+.fc-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:rgba(0,200,176,.12);
+  display:flex;align-items:center;justify-content:center;margin-bottom:1rem;
+  transition:transform .2s,background .2s;
+}
+.feat-cell:hover .fc-icon{transform:scale(1.1);background:rgba(0,200,176,.2);}
+.feat-cell h3{font-size:.97rem;font-weight:700;color:var(--white);margin-bottom:.4rem;}
+.feat-cell p{font-size:.81rem;color:var(--w50);line-height:1.65;}
+.feat-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.9rem;}
+.ft{font-size:.63rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;}
+.ft-blue{background:rgba(36,112,216,.15);color:var(--blue-accent);}
+.ft-teal{background:rgba(0,200,176,.12);color:var(--teal);}
+.ft-status{background:rgba(0,200,150,.1);color:var(--green);}
+
+/* ─────────────────────────────────────────
+   PERSONAS
+──────────────────────────────────────────*/
+#personas .persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.persona-card{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:16px;padding:2rem 1.7rem;
+  transition:all .3s cubic-bezier(.22,.61,.36,1);
+}
+.persona-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(36,112,216,.12);border-color:var(--blue-bright);}
+.persona-av{
+  width:50px;height:50px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.1rem;
+  transition:transform .25s;
+}
+.persona-card:hover .persona-av{transform:scale(1.1) rotate(-4deg);}
+.av1{background:rgba(0,200,176,.1);}
+.av2{background:rgba(36,112,216,.1);}
+.av3{background:rgba(255,107,53,.1);}
+.persona-card h3{font-size:1.02rem;font-weight:700;margin-bottom:.2rem;color:var(--navy);}
+.persona-type{font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-bright);margin-bottom:1rem;}
+.persona-traits{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;}
+.trait{display:flex;align-items:flex-start;gap:.45rem;font-size:.81rem;color:var(--text-mid);line-height:1.45;}
+.trait-dot{width:5px;height:5px;border-radius:50%;background:var(--blue-bright);flex-shrink:0;margin-top:.4rem;}
+.persona-need{border-top:1.5px solid var(--border);padding-top:.9rem;font-size:.79rem;color:var(--text-soft);line-height:1.6;}
+.persona-need strong{color:var(--blue-bright);}
+
+/* ─────────────────────────────────────────
+   RESEARCH
+──────────────────────────────────────────*/
+#research .pain-items{display:flex;flex-direction:column;gap:.9rem;margin-top:2rem;}
+.pain-item{
+  display:flex;gap:1rem;align-items:flex-start;padding:1.2rem 1.3rem;
+  background:var(--white);border:1.5px solid var(--border);
+  border-left:3px solid var(--blue-bright);
+  border-radius:0 10px 10px 0;
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+}
+.pain-item:hover{transform:translateX(6px);border-color:var(--teal);box-shadow:4px 0 16px rgba(0,200,176,.08);}
+.pain-n{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;color:var(--blue-bright);opacity:.5;flex-shrink:0;margin-top:.15rem;width:20px;}
+.pain-item h4{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.2rem;}
+.pain-item p{font-size:.8rem;color:var(--text-soft);line-height:1.6;}
+
+.survey-box{background:var(--navy);border-radius:16px;padding:2rem;}
+.survey-box h4{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--w50);margin-bottom:1.5rem;}
+.sbar{margin-bottom:1.1rem;}
+.sbar-top{display:flex;justify-content:space-between;margin-bottom:.35rem;}
+.sbar-label{font-size:.8rem;color:var(--w70);}
+.sbar-pct{font-size:.8rem;font-weight:700;color:var(--teal);font-family:'JetBrains Mono',monospace;}
+.sbar-track{height:5px;background:var(--w06);border-radius:99px;overflow:hidden;}
+.sbar-fill{
+  height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--blue-bright),var(--teal));
+  width:0%;transition:width 1.2s cubic-bezier(.22,.61,.36,1);
+}
+.sbar-fill.animate{width:var(--target);}
+.survey-quote{border-top:1px solid var(--w12);padding-top:1.1rem;margin-top:1.1rem;}
+.survey-quote p{font-size:.8rem;font-style:italic;color:var(--w70);line-height:1.65;}
+.survey-quote cite{font-size:.67rem;color:var(--teal);font-style:normal;font-weight:700;margin-top:.4rem;display:block;}
+
+/* ─────────────────────────────────────────
+   MVP PRIORITIZATION
+──────────────────────────────────────────*/
+.mvp-list{display:flex;flex-direction:column;gap:.7rem;margin-top:2rem;}
+.mvp-item{
+  display:flex;align-items:center;gap:.9rem;padding:.95rem 1.1rem;
+  background:var(--surface);border:1.5px solid var(--border);border-radius:10px;
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+}
+.mvp-item:hover{border-color:var(--blue-bright);transform:translateX(4px);box-shadow:2px 0 12px rgba(36,112,216,.08);}
+.mvp-item.hl{background:rgba(0,200,176,.05);border-color:rgba(0,200,176,.3);}
+.mvp-pill{font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .6rem;border-radius:4px;white-space:nowrap;flex-shrink:0;}
+.pill-mvp{background:var(--teal);color:var(--navy);}
+.pill-v2{background:var(--border);color:var(--text-soft);}
+.mvp-label{font-size:.88rem;font-weight:600;flex:1;color:var(--navy);}
+.impact-dots{display:flex;gap:3px;flex-shrink:0;}
+.idot{width:6px;height:6px;border-radius:50%;background:var(--border);}
+.idot.on{background:var(--teal);}
+
+.matrix{
+  display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+  height:330px;gap:2px;background:var(--border);border:2px solid var(--border);
+  border-radius:12px;overflow:hidden;position:relative;
+}
+.quad{background:var(--surface);padding:.7rem .9rem;display:flex;align-items:flex-end;}
+.quad h5{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--text-soft);}
+.quad.star{background:rgba(0,200,176,.05);}
+.quad.star h5{color:var(--teal);}
+.mdot{
+  position:absolute;width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.58rem;font-weight:700;text-align:center;line-height:1.3;
+  cursor:default;transition:transform .25s,box-shadow .25s;
+}
+.mdot:hover{transform:scale(1.18)!important;box-shadow:0 4px 14px rgba(0,0,0,.2);}
+.mdot-mvp{background:var(--teal);color:var(--navy);}
+.mdot-v2{background:var(--white);color:var(--text);border:1.5px solid var(--border);}
+.mat-ax-x{position:absolute;bottom:-24px;left:0;right:0;display:flex;justify-content:space-between;font-size:.65rem;color:var(--text-soft);}
+.mat-ax-y{position:absolute;left:-24px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-between;font-size:.65rem;color:var(--text-soft);writing-mode:vertical-rl;transform:rotate(180deg);}
+
+/* ─────────────────────────────────────────
+   ARCH + TRADE-OFFS
+──────────────────────────────────────────*/
+.arch-diagram{
+  background:rgba(255,255,255,.04);border:1px solid var(--w12);border-radius:14px;padding:2rem;
+}
+.arch-layer{
+  display:flex;align-items:center;gap:1.2rem;padding:1rem 1.2rem;
+  background:var(--w06);border:1px solid var(--w12);border-radius:10px;margin-bottom:.8rem;
+  transition:background .2s,transform .2s;
+}
+.arch-layer:hover{background:rgba(0,200,176,.05);transform:translateX(3px);}
+.arch-layer:last-child{margin-bottom:0;}
+.arch-lbl{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--w50);width:80px;flex-shrink:0;}
+.arch-nodes-wrap{display:flex;flex-wrap:wrap;gap:.45rem;flex:1;}
+.arch-node{background:rgba(36,112,216,.12);border:1px solid rgba(36,112,216,.18);border-radius:6px;padding:.3rem .7rem;font-size:.73rem;font-weight:500;color:var(--w70);}
+.arch-node.core{background:rgba(0,200,176,.12);border-color:rgba(0,200,176,.25);color:var(--teal);}
+.arch-arrow{text-align:center;font-size:.72rem;color:var(--teal);padding:.2rem 0;letter-spacing:.08em;}
+
+.trade-items{display:flex;flex-direction:column;gap:.8rem;}
+.trade-item{
+  display:flex;gap:.9rem;padding:1.1rem;
+  background:var(--w06);border:1px solid var(--w12);border-radius:10px;
+  transition:background .2s,transform .2s;
+}
+.trade-item:hover{background:rgba(0,200,176,.05);transform:translateX(3px);}
+.trade-item-icon{flex-shrink:0;margin-top:.1rem;}
+.trade-item-content b{display:block;font-size:.87rem;font-weight:700;color:var(--w90);margin-bottom:.2rem;}
+.trade-item-content span{font-size:.79rem;color:var(--w50);line-height:1.55;}
+
+/* ─────────────────────────────────────────
+   ROADMAP + METRICS
+──────────────────────────────────────────*/
+.roadmap-track{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--border);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;
+  margin-top:2.5rem;
+}
+.rm-phase{background:var(--white);padding:1.8rem 1.5rem;transition:background .25s,transform .25s;}
+.rm-phase:hover{background:var(--surface2);transform:translateY(-2px);}
+.rm-phase.current{border-top:3px solid var(--teal);}
+.rm-q{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:600;color:var(--teal);margin-bottom:.4rem;}
+.rm-phase h3{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.7rem;}
+.rm-items{display:flex;flex-direction:column;gap:.4rem;}
+.rm-item{display:flex;gap:.4rem;font-size:.78rem;color:var(--text-soft);line-height:1.4;align-items:flex-start;}
+.rm-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:.4rem;}
+
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-top:2.5rem;}
+.metric-cell{
+  background:var(--surface);padding:1.8rem 1.5rem;text-align:center;
+  transition:background .25s,transform .25s;
+}
+.metric-cell:hover{background:var(--white);transform:translateY(-2px);}
+.metric-n{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:2.2rem;font-weight:900;color:var(--blue-bright);
+  letter-spacing:-.04em;display:block;line-height:1;margin-bottom:.45rem;
+}
+.metric-name{font-size:.84rem;font-weight:600;color:var(--navy);margin-bottom:.25rem;}
+.metric-desc{font-size:.74rem;color:var(--text-soft);line-height:1.5;}
+
+/* ─────────────────────────────────────────
+   RISKS + REFLECTION
+──────────────────────────────────────────*/
+.risk-items{display:flex;flex-direction:column;gap:.8rem;margin-top:1.5rem;}
+.risk-item{
+  display:flex;padding:1.1rem;
+  background:var(--white);border:1.5px solid var(--border);border-radius:10px;
+  align-items:flex-start;gap:.9rem;
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+}
+.risk-item:hover{border-color:var(--blue-bright);transform:translateX(4px);box-shadow:2px 0 12px rgba(36,112,216,.07);}
+.risk-sev{
+  font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:.18rem .55rem;border-radius:4px;flex-shrink:0;margin-top:.1rem;white-space:nowrap;
+}
+.sev-hi{background:rgba(255,80,80,.1);color:#E55;}
+.sev-med{background:rgba(255,184,0,.1);color:#B80;}
+.sev-lo{background:rgba(0,200,150,.1);color:var(--green);}
+.risk-item h4{font-size:.87rem;font-weight:700;color:var(--navy);margin-bottom:.2rem;}
+.risk-item p{font-size:.79rem;color:var(--text-soft);line-height:1.6;}
+
+.reflection-card{background:var(--navy);border-radius:14px;padding:2rem;}
+.learning-items{display:flex;flex-direction:column;gap:1.1rem;margin-top:1.5rem;}
+.learning-item{display:flex;gap:.9rem;}
+.l-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;color:var(--teal);flex-shrink:0;margin-top:.15rem;}
+.learning-item h4{font-size:.88rem;font-weight:700;color:var(--w90);margin-bottom:.2rem;}
+.learning-item p{font-size:.79rem;color:var(--w50);line-height:1.6;}
+.reflection-quote{margin-top:1.8rem;padding-top:1.5rem;border-top:1px solid var(--w12);}
+.reflection-quote blockquote{font-size:.95rem;font-style:italic;color:var(--w70);line-height:1.75;}
+.reflection-quote cite{font-size:.7rem;color:var(--teal);font-style:normal;font-weight:700;margin-top:.5rem;display:block;}
+
+/* ─────────────────────────────────────────
+   PROTOTYPE EMBED
+──────────────────────────────────────────*/
+#prototype{background:var(--surface);}
+.prototype-frame{
+  background:var(--navy);border-radius:48px;display:inline-block;padding:.6rem;
+  box-shadow:0 40px 80px rgba(11,29,58,.2);
+  transition:transform .3s,box-shadow .3s;
+}
+.prototype-frame:hover{transform:translateY(-4px);box-shadow:0 56px 100px rgba(11,29,58,.3);}
+.prototype-frame iframe{
+  border-radius:40px;border:none;display:block;
+  overflow-y:auto;
+}
+
+/* ─────────────────────────────────────────
+   CTA + FOOTER
+──────────────────────────────────────────*/
+#cta{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);
+  padding:5rem 1.5rem;text-align:center;position:relative;overflow:hidden;
+}
+#cta::before{
+  content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(0,200,176,.1) 0%,transparent 65%);
+  pointer-events:none;
+  animation:floatOrb 12s ease-in-out infinite;
+}
+.cta-inner{position:relative;z-index:1;}
+.cta-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(0,200,176,.1);border:1px solid rgba(0,200,176,.25);
+  border-radius:99px;padding:.3rem .9rem;
+  font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:1.2rem;
+}
+.cta-h{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--white);letter-spacing:-.03em;margin-bottom:.9rem;line-height:1.1;}
+.cta-sub{font-size:.97rem;color:var(--w70);max-width:480px;margin:0 auto 2rem;line-height:1.7;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+
+footer{
+  background:var(--navy);border-top:1px solid var(--w12);
+  padding:2rem 1.5rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:1rem;color:var(--white);}
+.footer-logo span{color:var(--teal);}
+.footer-copy{font-size:.76rem;color:var(--w50);}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{font-size:.76rem;color:var(--w50);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--white);}
+
+/* ── BANNER SECTION ── */
+#banner-section{
+  width:100%;overflow:hidden;
+  line-height:0;
+  position:relative;
+  background:var(--navy);
+}
+#banner-section img{
+  width:100%;height:auto;display:block;
+  object-fit:contain;object-position:center;
+}
+#banner-section::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 70%,var(--navy) 100%);
+  pointer-events:none;
+}
+
+/* ── MODAL OVERLAY ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:1100;
+  background:rgba(6,15,30,.88);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;padding:1.5rem;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  position:relative;width:100%;max-width:900px;
+  background:var(--navy-card);
+  border:1px solid var(--w12);border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.7);
+  animation:modalIn .3s cubic-bezier(.22,.61,.36,1);
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(16px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 1.2rem;
+  background:rgba(0,0,0,.25);border-bottom:1px solid var(--w08);
+}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;color:var(--white);}
+.modal-close{
+  background:var(--w08);border:1px solid var(--w12);
+  color:var(--w70);cursor:pointer;border-radius:8px;
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  transition:background .2s,color .2s;flex-shrink:0;
+}
+.modal-close:hover{background:rgba(255,77,77,.15);color:#FF6B6B;border-color:rgba(255,77,77,.3);}
+.modal-body{padding:0;}
+.modal-body iframe{display:block;width:100%;border:none;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1000px){
+  .hero-inner{grid-template-columns:1fr;padding-top:1rem;}
+  .hero-right{display:none;}
+  .grid-2,.role-grid{grid-template-columns:1fr;}
+  #my-role .role-grid{grid-template-columns:1fr;}
+  .grid-3,.problem-cards,.persona-grid,.feat-grid{grid-template-columns:1fr 1fr;}
+  .grid-4,.roadmap-track,.metrics-grid{grid-template-columns:1fr 1fr;}
+  nav .nav-links{display:none;}
+  .fp-grid{grid-template-columns:1fr!important;}
+  #research .grid-2{grid-template-columns:1fr;}
+  #arch-tradeoff .grid-2{grid-template-columns:1fr;}
+  #risks-reflection .grid-2{grid-template-columns:1fr;}
+}
+@media(max-width:640px){
+  .grid-3,.problem-cards,.persona-grid,.feat-grid,.grid-4,.roadmap-track,.metrics-grid{grid-template-columns:1fr;}
+  .stats-strip-inner{gap:1.2rem;}
+  .strip-div{display:none;}
+  .matrix{height:260px;}
+  footer{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── PROGRESS BAR ── -->
+<div id="progress-bar"></div>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-mark">
+        <img src="./logo.png" alt="Proyan Logo" style="width:46px;height:46px;object-fit:cover;display:block;">
+      </div>
+      <div>
+        <div class="nav-logo-text">Proyan</div>
+        <div class="nav-logo-bn">প্রয়ান</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#solution">Solution</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+    </ul>
+    <div class="nav-cta-group">
+      <button onclick="openPRD()" class="btn-teal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        View PRD
+      </button>
+      <button onclick="openMiro()" class="btn-teal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        View Wireframe
+      </button>
+      <a href="#phone-mockup" class="btn-teal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        Prototype
+      </a>
+      <button class="hamburger" onclick="toggleMenu()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── MOBILE MENU ── -->
+<div id="mobileMenu">
+  <button class="mob-nav-close" onclick="toggleMenu()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <nav class="mob-nav-links">
+    <a href="#problem" onclick="toggleMenu()">Problem</a>
+    <a href="#solution" onclick="toggleMenu()">Solution</a>
+    <a href="#features" onclick="toggleMenu()">Features</a>
+    <a href="#roadmap" onclick="toggleMenu()">Roadmap</a>
+    <a href="#phone-mockup" onclick="toggleMenu()">Prototype</a>
+  </nav>
+  <div class="mob-nav-footer">
+    <button onclick="toggleMenu();openPRD();" class="btn-teal" style="justify-content:center;width:100%;cursor:pointer;">View PRD</button>
+    <button onclick="toggleMenu();openMiro();" class="btn-teal" style="justify-content:center;width:100%;cursor:pointer;">View Wireframe</button>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow1"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span class="hero-badge-dot"></span>Urban Mobility · PM Portfolio · Bangladesh</div>
+      <h1 class="hero-h1">
+        One app for<br><span class="accent">everyday comute</span>
+      </h1>
+      <p class="hero-sub">Multimodal route planning, AI traffic intelligence, SOS safety, integrated MFS payments, and vehicle management — all in a single platform built for Bangladesh.</p>
+      <div class="hero-btns">
+        <button onclick="openPRD()" class="btn-primary" style="cursor:pointer;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Read the PRD
+        </button>
+        <a href="#phone-mockup" class="btn-outline-white">Interactive Prototype →</a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item"><strong>16</strong> commuters surveyed</div>
+        <div class="hero-trust-item" style="width:1px;height:16px;background:var(--w25);"></div>
+        <div class="hero-trust-item"><strong>3</strong> in-depth interviews</div>
+        <div class="hero-trust-item" style="width:1px;height:16px;background:var(--w25);"></div>
+        <div class="hero-trust-item"><strong>8</strong> feature areas specified</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div style="
+        border-radius:20px;overflow:hidden;
+        box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px var(--w12);
+        animation:phoneFloat 6s ease-in-out infinite;
+        max-width:480px;margin:0 auto;
+      ">
+        <img src="./banner.png" alt="Proyan App Banner"
+          style="width:100%;height:auto;display:block;object-fit:contain;">
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <div class="scroll-mouse"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ── STATS STRIP ── -->
+<div class="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="strip-item"><span class="strip-n" data-count="7" data-suffix=" km/h">7 km/h</span><div class="strip-l">Average traffic speed in Dhaka (down from 21)</div></div>
+    <div class="strip-div"></div>
+    <div class="strip-item"><span class="strip-n" data-count="3.2" data-suffix="M">3.2M</span><div class="strip-l">Work hours lost to congestion per day</div></div>
+    <div class="strip-div"></div>
+    <div class="strip-item"><span class="strip-n" data-count="238" data-suffix="M+">238M+</span><div class="strip-l">MFS accounts in Bangladesh (Bangladesh Bank, 2024)</div></div>
+    <div class="strip-div"></div>
+    <div class="strip-item"><span class="strip-n" data-count="70.1" data-suffix="%">70.1%</span><div class="strip-l">Households with smartphones (BBS FY2025)</div></div>
+    <div class="strip-div"></div>
+    <div class="strip-item"><span class="strip-n">5th</span><div class="strip-l">Most congested city globally (TomTom, 2024)</div></div>
+  </div>
+</div>
+
+<!-- ── MY ROLE ── -->
+<section id="my-role" class="section-wrap bg-white-sec">
+  <div class="max-w">
+    <div class="role-grid reveal">
+      <div>
+        <div class="eyebrow">My Contribution</div>
+        <h2 class="section-title">End-to-end PM work on a <em>zero-to-one product</em></h2>
+        <p class="section-sub">I led all product management activities on Proyan — from discovery through specification — as a solo PM.</p>
+        <div class="timeline" id="timeline">
+          <div class="tl-step">
+            <div class="tl-dot">01</div>
+            <div><h4>Discovery & Research</h4><p>Survey of 16 Dhaka commuters + 3 in-depth interviews in Bangla. Secondary data on transport infrastructure and the regulatory landscape.</p></div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-dot">02</div>
+            <div><h4>Problem Definition</h4><p>Synthesized fragmentation, pain points, and opportunity sizing into a clear, evidence-backed problem statement.</p></div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-dot">03</div>
+            <div><h4>Product Strategy</h4><p>Competitive benchmarking (Citymapper, Moovit, Pathao), SWOT, regulatory timing analysis, and Impact × Complexity prioritization.</p></div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-dot">04</div>
+            <div><h4>Feature Specification</h4><p>Full PRD: 8 feature areas, 15+ user stories, system architecture, success metrics, risk register, 4-quarter roadmap.</p></div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-dot">05</div>
+            <div><h4>Wireframing</h4><p>Interactive wireframes on Miro + clickable Figma prototype covering core flows for Move Easy, SOS Services, and Proyan Wallet.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="role-quote-card">
+          <blockquote>"Dhaka's commute fragmentation isn't just an inconvenience — it's a daily economic tax on millions of people. Proyan is my attempt to design a product that removes that tax."</blockquote>
+          <cite>— Ragib Ahsan, Product Manager</cite>
+          <div class="kpi-grid">
+            <div class="kpi-cell"><span class="kpi-n counter" data-target="16">0</span><div class="kpi-l">Survey respondents</div></div>
+            <div class="kpi-cell"><span class="kpi-n counter" data-target="3">0</span><div class="kpi-l">User interviews</div></div>
+            <div class="kpi-cell"><span class="kpi-n counter" data-target="8">0</span><div class="kpi-l">Feature areas</div></div>
+            <div class="kpi-cell"><span class="kpi-n">15+</span><div class="kpi-l">User stories</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ── -->
+<section id="problem" class="section-wrap bg-surface">
+  <div class="max-w">
+    <div style="text-align:center;max-width:640px;margin:0 auto 3rem;" class="reveal">
+      <div class="eyebrow" style="justify-content:center;">The Commuting Crisis</div>
+      <h2 class="section-title" style="text-align:center;">Dhaka's transport is<br><em>broken and fragmented</em></h2>
+      <p class="section-sub" style="max-width:100%;">Commuters juggle 5+ apps, lose over 2 hours daily to traffic, and have no integrated solution for planning, paying, and managing their journeys.</p>
+    </div>
+    <div class="problem-cards">
+      <div class="problem-card reveal d1">
+        <div class="pc-icon red">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E55" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Traffic Chaos</h3>
+        <p>"I waste 2+ hours daily in jams with no way to know which route is clear." Speed dropped from 21 km/h to 7 km/h in a decade. May reach 4 km/h by 2035.</p>
+        <span class="pc-stat red">93.8% cited as top pain</span>
+      </div>
+      <div class="problem-card reveal d2">
+        <div class="pc-icon yellow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C90" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="#C90"/></svg>
+        </div>
+        <h3>Zero Safety Features</h3>
+        <p>"At night I never know if an area is safe. No emergency feature anywhere." 74% of Dhaka road accidents involve pedestrians. No existing transport app has SOS.</p>
+        <span class="pc-stat yellow">75% cite safety concern</span>
+      </div>
+      <div class="problem-card reveal d3">
+        <div class="pc-icon blue">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2470D8" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="7" height="7"/><rect x="15" y="3" width="7" height="7"/><rect x="2" y="14" width="7" height="7"/><path d="M15 17h7M18.5 14v6"/></svg>
+        </div>
+        <h3>App Fragmentation</h3>
+        <p>"License renewal, tax payments — I queue for hours or use five different apps." Commuters use Uber, Pathao, Shohoz, Google Maps, DMTCL, and bKash separately.</p>
+        <span class="pc-stat blue">5+ apps per commute</span>
+      </div>
+    </div>
+    <div class="frag-table reveal" style="margin-top:2.5rem;">
+      <div class="frag-head"><span>Transport Mode</span><span>Current App(s) — No Integration</span></div>
+      <div class="frag-row">
+        <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="8" width="18" height="10" rx="2"/><path d="M7 8V6a2 2 0 014 0v2M13 8V6a2 2 0 014 0v2"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="16.5" cy="18" r="1.5"/></svg></div>
+        <div class="frag-info"><b>MRT Line-6 (Metro)</b><small>Uttara to Motijheel — 17 stations</small></div><span class="frag-badge">No registered App as Pass</span>
+      </div>
+      <div class="frag-row">
+        <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A9BFF" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M6 7V5a2 2 0 014 0v2M14 7V5a2 2 0 014 0v2"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="17.5" cy="18" r="1.5"/></svg></div>
+        <div class="frag-info"><b>City Bus / BRTC</b><small>~30% modal share in Dhaka</small></div><span class="frag-badge">No unified app</span>
+      </div>
+      <div class="frag-row">
+        <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFB800" stroke-width="1.8" stroke-linecap="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M15 6l-3 5H8l-3 6M10 6h5l3 5"/></svg></div>
+        <div class="frag-info"><b>Bike Ride-hailing</b><small>Pathao (60–70% market), Uber</small></div><span class="frag-badge">2 Apps</span>
+      </div>
+      <div class="frag-row">
+        <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v5h-2"/><circle cx="15.5" cy="18.5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="frag-info"><b>Car Ride-hailing</b><small>Uber, Pathao, inDrive</small></div><span class="frag-badge">3 apps</span>
+      </div>
+      <div class="frag-row">
+        <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00C896" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+        <div class="frag-info"><b>Rickshaw / CNG</b><small>~38% modal share — largest in city,- Uber, Obhai</small></div><span class="frag-badge">2 apps</span>
+      </div>
+      <div class="frag-row">
+        <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <div class="frag-info"><b>Payment</b><small>bKash (40% MFS share), Nagad, Rocket, PathaoPay</small></div><span class="frag-badge">3 MFS apps + cash</span>
+      </div>
+      <div class="frag-row" style="background:rgba(0,200,176,.04);">
+        <div class="frag-ico" style="background:rgba(0,200,176,.1);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div class="frag-info"><b style="color:#00C8B0;">All of the above — unified</b><small>Proyan's vision</small></div><span class="frag-badge proyan">Proyan</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOLUTION ── -->
+<section id="solution" class="section-wrap bg-white-sec">
+  <div class="max-w">
+    <div style="text-align:center;max-width:600px;margin:0 auto 2.5rem;" class="reveal">
+      <div class="eyebrow" style="justify-content:center;">The Proyan Solution</div>
+      <h2 class="section-title" style="text-align:center;">One integrated platform<br>that <em>solves it all</em></h2>
+      <p class="section-sub" style="max-width:100%;">Instead of 5+ apps, Proyan combines real-time traffic, multimodal planning, vehicle management, government services, and safety — all in one place.</p>
+    </div>
+    <div class="fp-grid reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+      <div class="fp-card">
+        <div class="fp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></div>
+        <div><h3>AI Traffic + Route Planning</h3><p class="fp-prob">Problem: No live data → unpredictable delays, no alternate routes.</p><p class="fp-sol"><strong>Solution:</strong> Real-time congestion from community & AI with automatic rerouting.</p></div>
+      </div>
+      <div class="fp-card">
+        <div class="fp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><rect x="3" y="8" width="18" height="10" rx="2"/><path d="M7 8V6a2 2 0 014 0v2M13 8V6a2 2 0 014 0v2"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="16.5" cy="18" r="1.5"/></svg></div>
+        <div><h3>Multimodal & E-ticketing</h3><p class="fp-prob">Problem: Queue at counters, physical tickets, mode switching.</p><p class="fp-sol"><strong>Solution:</strong> Plan bus + metro + ride in one flow; buy digital tickets and scan QR.</p></div>
+      </div>
+      <div class="fp-card">
+        <div class="fp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="#00C8B0"/></svg></div>
+        <div><h3>SOS & Safety Alerts</h3><p class="fp-prob">Problem: No emergency help in apps; 74% pedestrian accident rate.</p><p class="fp-sol"><strong>Solution:</strong> One-tap SOS to 3 contacts, locate nearest police booth, share live location.</p></div>
+      </div>
+      <div class="fp-card">
+        <div class="fp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <div><h3>Integrated MFS Payments</h3><p class="fp-prob">Problem: Multiple wallets, cash for tolls, no unified transport payment.</p><p class="fp-sol"><strong>Solution:</strong> Unified wallet for tickets, tolls, taxes — via bKash, Nagad, Rocket, Upay or card.</p></div>
+      </div>
+      <div class="fp-card">
+        <div class="fp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v5h-2"/><circle cx="15.5" cy="18.5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/></svg></div>
+        <div><h3>Vehicle Maintenance & Docs</h3><p class="fp-prob">Problem: Missed BRTA renewals, physical paperwork, no digital tools.</p><p class="fp-sol"><strong>Solution:</strong> Track schedules, renewal reminders, store digital fitness certificates and road tax docs.</p></div>
+      </div>
+      <div class="fp-card">
+        <div class="fp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/></svg></div>
+        <div><h3>Proyan Community</h3><p class="fp-prob">Problem: No shared, real-time commuter intelligence in BD transport apps.</p><p class="fp-sol"><strong>Solution:</strong> Users post jams, accidents, route changes — feeds directly into the AI traffic layer.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES DEEP DIVE ── -->
+<section id="features" class="section-wrap bg-navy dark">
+  <div class="max-w">
+    <div style="text-align:center;max-width:600px;margin:0 auto 2.5rem;" class="reveal">
+      <div class="eyebrow eyebrow-dark" style="justify-content:center;">Feature Specification</div>
+      <h2 class="section-title light" style="text-align:center;">8 features. One<br><em class="light">unified platform</em></h2>
+      <p class="section-sub dark" style="max-width:100%;">Each feature was designed from a real, research-validated pain point. All are currently in development.</p>
+    </div>
+    <div class="feat-grid reveal">
+      <div class="feat-cell">
+        <div class="fc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></div>
+        <h3>Move Easy</h3>
+        <p>Multimodal route planner covering bus, MRT, rickshaw, bike-hailing, car-hailing and carpool. Real-time fare estimation and e-ticketing across all modes.</p>
+        <div class="feat-tags"><span class="ft ft-blue">Route Planning</span><span class="ft ft-blue">Fare Engine</span><span class="ft ft-teal">E-Ticketing</span><span class="ft ft-status">In Dev</span></div>
+      </div>
+      <div class="feat-cell">
+        <div class="fc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h3>Proyan Map</h3>
+        <p>Google Maps as base layer, enhanced with an AI-powered community traffic intelligence overlay. The intelligence engine powering Move Easy routing.</p>
+        <div class="feat-tags"><span class="ft ft-blue">Google Maps API</span><span class="ft ft-teal">AI Traffic Layer</span><span class="ft ft-status">In Dev</span></div>
+      </div>
+      <div class="feat-cell">
+        <div class="fc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="#00C8B0"/></svg></div>
+        <h3>SOS Services</h3>
+        <p>One-tap emergency alert to 3 pre-configured contacts. Locates nearest police booths and traffic authorities. Live location sharing during distress situations.</p>
+        <div class="feat-tags"><span class="ft ft-blue">Emergency Alert</span><span class="ft ft-teal">Police Locator</span><span class="ft ft-status">In Dev</span></div>
+      </div>
+      <div class="feat-cell">
+        <div class="fc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/></svg></div>
+        <h3>Proyan Community</h3>
+        <p>Crowd-sourced real-time traffic alerts from verified commuters. All reports feed directly into the Proyan Map AI layer for smarter routing and ETAs.</p>
+        <div class="feat-tags"><span class="ft ft-blue">Crowd-sourced</span><span class="ft ft-teal">AI Feed</span><span class="ft ft-status">In Dev</span></div>
+      </div>
+      <div class="feat-cell">
+        <div class="fc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <h3>Proyan Wallet</h3>
+        <p>Single payment gateway integrating bKash, Nagad, Rocket, Upay and bank cards. Monthly commute expense reports. Unified MFS balance and transaction management.</p>
+        <div class="feat-tags"><span class="ft ft-blue">bKash / Nagad</span><span class="ft ft-teal">Expense Reports</span><span class="ft ft-status">In Dev</span></div>
+      </div>
+      <div class="feat-cell">
+        <div class="fc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v5h-2"/><circle cx="15.5" cy="18.5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/><path d="M15 9h1a2 2 0 010 4h-1"/></svg></div>
+        <h3>Vehicle Management</h3>
+        <p>Digital hub for BRTA-linked vehicle documents: fitness certificates, road tax, insurance, license renewal reminders, and challan payment. (V2, BRTA API dependent.)</p>
+        <div class="feat-tags"><span class="ft ft-blue">BRTA Integration</span><span class="ft ft-teal">Doc Management</span><span class="ft ft-status">V2</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PERSONAS ── -->
+<section id="personas" class="section-wrap bg-white-sec">
+  <div class="max-w">
+    <div style="text-align:center;max-width:560px;margin:0 auto 2.5rem;" class="reveal">
+      <div class="eyebrow" style="justify-content:center;">Who We Built It For</div>
+      <h2 class="section-title" style="text-align:center;">Three personas from <em>real interviews</em></h2>
+      <p class="section-sub" style="max-width:100%;">Based on 16 survey respondents and 3 qualitative interviews conducted in Bangla. Demographics: 50% aged 18–24, 50% aged 25–34.</p>
+    </div>
+    <div class="persona-grid">
+      <div class="persona-card reveal d1">
+        <div class="persona-av av1">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <h3>Rahim — Office Commuter</h3>
+        <div class="persona-type">Employed · Age 28 · Daily commuter</div>
+        <div class="persona-traits">
+          <div class="trait"><span class="trait-dot"></span>Bus + rickshaw, 2+ hours daily in traffic</div>
+          <div class="trait"><span class="trait-dot"></span>Uses Pathao and Google Maps separately</div>
+          <div class="trait"><span class="trait-dot"></span>Frustrated by unpredictable arrival times</div>
+        </div>
+        <div class="persona-need"><strong>Primary need:</strong> Real-time multimodal route planning with live ETA — planning the optimal bus + rickshaw mix without app switching.</div>
+      </div>
+      <div class="persona-card reveal d2">
+        <div class="persona-av av2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2470D8" stroke-width="1.8" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <h3>Nadia — Student</h3>
+        <div class="persona-type">Student · Age 21 · Budget-conscious</div>
+        <div class="persona-traits">
+          <div class="trait"><span class="trait-dot"></span>Public bus and walking; very price-sensitive</div>
+          <div class="trait"><span class="trait-dot"></span>Coordinates via Facebook groups for bus schedules</div>
+          <div class="trait"><span class="trait-dot"></span>Personal safety concern, especially at night</div>
+        </div>
+        <div class="persona-need"><strong>Primary need:</strong> Affordable route suggestions + <strong>SOS safety features</strong> — live location sharing with family and nearby police booth finder.</div>
+      </div>
+      <div class="persona-card reveal d3">
+        <div class="persona-av av3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v5h-2"/><circle cx="15.5" cy="18.5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h3>Karim — Vehicle Owner</h3>
+        <div class="persona-type">Employed · Age 34 · Car owner</div>
+        <div class="persona-traits">
+          <div class="trait"><span class="trait-dot"></span>Drives daily; struggles with Dhaka congestion</div>
+          <div class="trait"><span class="trait-dot"></span>Manages BRTA documents manually</div>
+          <div class="trait"><span class="trait-dot"></span>Wants alternate routes with real traffic intelligence</div>
+        </div>
+        <div class="persona-need"><strong>Primary need:</strong> AI-powered traffic routing with alternate suggestions + <strong>digital vehicle document management</strong> linked to BRTA.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESEARCH ── -->
+<section id="research" class="section-wrap bg-surface">
+  <div class="max-w">
+    <div class="grid-2 reveal">
+      <div>
+        <div class="eyebrow">User Research</div>
+        <h2 class="section-title">Four pain points<br>backed by <em>real data</em></h2>
+        <div class="pain-items">
+          <div class="pain-item"><div class="pain-n">01</div><div><h4>No Real-Time Multimodal Information</h4><p>Commuters can't see live bus locations, metro schedules, or rickshaw availability in one place. 87.5% cited real-time updates as their top need.</p></div></div>
+          <div class="pain-item"><div class="pain-n">02</div><div><h4>Fragmented Payment Experience</h4><p>Commuters switch between bKash, Nagad, and cash per journey leg. Despite 238M+ MFS accounts in Bangladesh, no transport app unifies these payments.</p></div></div>
+          <div class="pain-item"><div class="pain-n">03</div><div><h4>No Safety Infrastructure in Apps</h4><p>74% of Dhaka road accidents involve pedestrians. No existing transport app offers SOS, police locator, or real-time safety alerts.</p></div></div>
+          <div class="pain-item"><div class="pain-n">04</div><div><h4>Manual Vehicle & Document Management</h4><p>Private vehicle owners manage fitness certificates, road tax, and BRTA renewals entirely offline, with no digital reminders or submission tools.</p></div></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="survey-box">
+          <h4>Survey Results · N=16 Dhaka Commuters</h4>
+          <div class="sbar"><div class="sbar-top"><span class="sbar-label">Traffic congestion alerts</span><span class="sbar-pct">93.8%</span></div><div class="sbar-track"><div class="sbar-fill" style="--target:93.8%"></div></div></div>
+          <div class="sbar"><div class="sbar-top"><span class="sbar-label">Real-time transit updates</span><span class="sbar-pct">87.5%</span></div><div class="sbar-track"><div class="sbar-fill" style="--target:87.5%"></div></div></div>
+          <div class="sbar"><div class="sbar-top"><span class="sbar-label">E-ticketing / integrated payment</span><span class="sbar-pct">68.8%</span></div><div class="sbar-track"><div class="sbar-fill" style="--target:68.8%"></div></div></div>
+          <div class="sbar"><div class="sbar-top"><span class="sbar-label">Safety / SOS features</span><span class="sbar-pct">62.5%</span></div><div class="sbar-track"><div class="sbar-fill" style="--target:62.5%"></div></div></div>
+          <div class="sbar"><div class="sbar-top"><span class="sbar-label">Multimodal route planning</span><span class="sbar-pct">56.3%</span></div><div class="sbar-track"><div class="sbar-fill" style="--target:56.3%"></div></div></div>
+          <div class="sbar"><div class="sbar-top"><span class="sbar-label">Interested in integrated app</span><span class="sbar-pct">75.0%</span></div><div class="sbar-track"><div class="sbar-fill" style="--target:75%"></div></div></div>
+          <div class="survey-quote">
+            <p>"আমি প্রতিদিন ৫টা অ্যাপ ব্যবহার করি — একটা থাকলে সময় বাঁচত।"</p>
+            <cite>Interview participant · ("I use 5 apps daily — one app would save so much time.")</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MVP PRIORITIZATION ── -->
+<section id="prioritization" class="section-wrap bg-white-sec">
+  <div class="max-w">
+    <div class="grid-2 reveal">
+      <div>
+        <div class="eyebrow">Feature Prioritization</div>
+        <h2 class="section-title">Impact × Complexity<br><em>MVP framework</em></h2>
+        <p class="section-sub" style="margin-bottom:1.5rem;">MVP scoped to highest-impact, achievable features. Lower-impact or high-complexity features deferred to V2.</p>
+        <div class="mvp-list">
+          <div class="mvp-item hl"><span class="mvp-pill pill-mvp">MVP</span><span class="mvp-label">Move Easy — Multimodal Route Planner</span><div class="impact-dots"><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div></div></div>
+          <div class="mvp-item hl"><span class="mvp-pill pill-mvp">MVP</span><span class="mvp-label">SOS Safety — Emergency Alert System</span><div class="impact-dots"><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div></div></div>
+          <div class="mvp-item hl"><span class="mvp-pill pill-mvp">MVP</span><span class="mvp-label">Proyan Map — AI Traffic Layer</span><div class="impact-dots"><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot"></div></div></div>
+          <div class="mvp-item hl"><span class="mvp-pill pill-mvp">MVP</span><span class="mvp-label">Proyan Wallet — bKash/Nagad Integration</span><div class="impact-dots"><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot"></div></div></div>
+          <div class="mvp-item"><span class="mvp-pill pill-v2">V2</span><span class="mvp-label">Community — Crowd Traffic Alerts</span><div class="impact-dots"><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot"></div><div class="idot"></div></div></div>
+          <div class="mvp-item"><span class="mvp-pill pill-v2">V2</span><span class="mvp-label">Vehicle Management — BRTA Integration</span><div class="impact-dots"><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot on"></div><div class="idot"></div></div></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div style="position:relative;padding-bottom:30px;">
+          <div class="matrix">
+            <div class="quad star"><h5>⭐ Invest — MVP Priority</h5></div>
+            <div class="quad"><h5>Plan Carefully</h5></div>
+            <div class="quad"><h5>Quick Wins (MVP)</h5></div>
+            <div class="quad"><h5>Deprioritize</h5></div>
+            <div class="mdot mdot-mvp" style="left:17%;top:17%">Move<br>Easy</div>
+            <div class="mdot mdot-mvp" style="left:30%;top:30%">SOS</div>
+            <div class="mdot mdot-mvp" style="left:60%;top:20%">Map</div>
+            <div class="mdot mdot-mvp" style="left:67%;top:42%">Wallet</div>
+            <div class="mdot mdot-v2" style="left:20%;top:62%">Comm-<br>unity</div>
+            <div class="mdot mdot-v2" style="left:37%;top:72%">Vehicle<br>Mgmt</div>
+            <div class="mdot mdot-v2" style="left:70%;top:67%">Profile</div>
+          </div>
+          <div class="mat-ax-x"><span>Low Complexity →</span><span>← High Complexity</span></div>
+          <div class="mat-ax-y"><span>High Impact</span><span>Low Impact</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ARCHITECTURE + TRADE-OFFS ── -->
+<section id="arch-tradeoff" class="section-wrap bg-navy dark">
+  <div class="max-w">
+    <div class="grid-2 reveal">
+      <div>
+        <div class="eyebrow eyebrow-dark">Architecture</div>
+        <h3 style="font-size:1.55rem;font-weight:800;color:var(--white);margin-bottom:1rem;letter-spacing:-.02em;">How it works <span style="color:var(--teal)">under the hood</span></h3>
+        <p style="font-size:.85rem;color:var(--w50);line-height:1.7;margin-bottom:1.5rem;">Modular layered system: app UI → core routing engine with AI → integration with maps, payment, and government APIs → community data feedback loop.</p>
+        <div class="arch-diagram">
+          <div class="arch-layer"><div class="arch-lbl">User Layer</div><div class="arch-nodes-wrap"><span class="arch-node core">Proyan App</span><span class="arch-node">Move Easy UI</span><span class="arch-node">SOS Interface</span><span class="arch-node">Wallet UI</span></div></div>
+          <div class="arch-arrow">↕ REST API / WebSocket</div>
+          <div class="arch-layer"><div class="arch-lbl">Core Engine</div><div class="arch-nodes-wrap"><span class="arch-node core">Routing Engine</span><span class="arch-node core">AI Traffic</span><span class="arch-node">Alert Processor</span><span class="arch-node">NID Auth</span></div></div>
+          <div class="arch-arrow">↕ External Integrations</div>
+          <div class="arch-layer"><div class="arch-lbl">APIs</div><div class="arch-nodes-wrap"><span class="arch-node">Google Maps</span><span class="arch-node">bKash API</span><span class="arch-node">Nagad API</span><span class="arch-node">DMTCL</span><span class="arch-node">Pathao/Uber</span></div></div>
+          <div class="arch-arrow">↕ Government Systems</div>
+          <div class="arch-layer"><div class="arch-lbl">Gov</div><div class="arch-nodes-wrap"><span class="arch-node">BRTA Registry</span><span class="arch-node">NID Verify</span><span class="arch-node">Police API</span></div></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="eyebrow eyebrow-dark">Trade-offs</div>
+        <h3 style="font-size:1.55rem;font-weight:800;color:var(--white);margin-bottom:1.2rem;letter-spacing:-.02em;">Balancing complexity <span style="color:var(--teal)">& usability</span></h3>
+        <div class="trade-items">
+          <div class="trade-item">
+            <svg class="trade-item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            <div class="trade-item-content"><b>Launch modes vs. UX simplicity</b><span>Start with 4 core modes (Bus, MRT, Bike, Car). Rickshaw in V2 — no API exists yet.</span></div>
+          </div>
+          <div class="trade-item">
+            <svg class="trade-item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="trade-item-content"><b>Build map vs. use Google Maps</b><span>Google Maps as base for accuracy + speed. Proyan adds community AI layer on top.</span></div>
+          </div>
+          <div class="trade-item">
+            <svg class="trade-item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            <div class="trade-item-content"><b>Own payment processor vs. MFS gateways</b><span>Users trust bKash, Nagad already. Integrating lowers friction and avoids payment licensing overhead.</span></div>
+          </div>
+          <div class="trade-item">
+            <svg class="trade-item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <div class="trade-item-content"><b>BRTA in MVP vs. V2</b><span>BRTA digitization timeline is uncertain — deferred until the API stabilizes.</span></div>
+          </div>
+          <div class="trade-item">
+            <svg class="trade-item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            <div class="trade-item-content"><b>Dhaka-only vs. multi-city launch</b><span>Dhaka has the most acute problem. Single-city focus ensures quality and community density at launch.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROADMAP + METRICS ── -->
+<section id="roadmap" class="section-wrap bg-surface">
+  <div class="max-w">
+    <div style="text-align:center;max-width:580px;margin:0 auto 1.5rem;" class="reveal">
+      <div class="eyebrow" style="justify-content:center;">Roadmap</div>
+      <h2 class="section-title" style="text-align:center;">Q1–Q4 phased<br><em>rollout plan</em></h2>
+    </div>
+    <div class="roadmap-track reveal">
+      <div class="rm-phase current">
+        <div class="rm-q">Q1 · Now</div>
+        <h3>MVP Design & Build</h3>
+        <div class="rm-items">
+          <div class="rm-item"><div class="rm-dot"></div>Move Easy (Bus, MRT, Bike, Car)</div>
+          <div class="rm-item"><div class="rm-dot"></div>Proyan Map + Google Maps + AI layer</div>
+          <div class="rm-item"><div class="rm-dot"></div>SOS safety alerts + emergency contacts</div>
+          <div class="rm-item"><div class="rm-dot"></div>bKash Wallet integration (Phase 1)</div>
+          <div class="rm-item"><div class="rm-dot"></div>NID auth + biometric login</div>
+        </div>
+      </div>
+      <div class="rm-phase">
+        <div class="rm-q">Q2 · Pilot</div>
+        <h3>Controlled Launch</h3>
+        <div class="rm-items">
+          <div class="rm-item"><div class="rm-dot"></div>Pilot with 1,000 Dhaka users</div>
+          <div class="rm-item"><div class="rm-dot"></div>E-ticketing for bus + MRT</div>
+          <div class="rm-item"><div class="rm-dot"></div>Nagad + Rocket wallet integration</div>
+          <div class="rm-item"><div class="rm-dot"></div>Community alert MVP launch</div>
+          <div class="rm-item"><div class="rm-dot"></div>ETA accuracy measurement</div>
+        </div>
+      </div>
+      <div class="rm-phase">
+        <div class="rm-q">Q3 · Scale</div>
+        <h3>City-wide Rollout</h3>
+        <div class="rm-items">
+          <div class="rm-item"><div class="rm-dot"></div>Full Dhaka public launch</div>
+          <div class="rm-item"><div class="rm-dot"></div>Rickshaw routing (GPS integration)</div>
+          <div class="rm-item"><div class="rm-dot"></div>Wallet expense reports</div>
+          <div class="rm-item"><div class="rm-dot"></div>Vehicle Mgmt V1 (pre-BRTA)</div>
+          <div class="rm-item"><div class="rm-dot"></div>Government doc access</div>
+        </div>
+      </div>
+      <div class="rm-phase">
+        <div class="rm-q">Q4 · Expand</div>
+        <h3>AI + Chittagong</h3>
+        <div class="rm-items">
+          <div class="rm-item"><div class="rm-dot"></div>Advanced AI traffic predictions</div>
+          <div class="rm-item"><div class="rm-dot"></div>BRTA API integration (V2)</div>
+          <div class="rm-item"><div class="rm-dot"></div>Chittagong city launch</div>
+          <div class="rm-item"><div class="rm-dot"></div>Personalized commute insights</div>
+          <div class="rm-item"><div class="rm-dot"></div>Corporate transport tier</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:3rem;" class="reveal">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <div class="eyebrow" style="justify-content:center;">Success Metrics</div>
+        <h2 class="section-title" style="text-align:center;">Measuring <em>product success</em></h2>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric-cell"><span class="metric-n">−40%</span><div class="metric-name">Commute Planning Time</div><div class="metric-desc">Reduction vs. using separate apps for multi-leg journey planning</div></div>
+        <div class="metric-cell"><span class="metric-n">65%</span><div class="metric-name">Day-30 Retention</div><div class="metric-desc">Users still active after 30 days — signal of genuine habit and value</div></div>
+        <div class="metric-cell"><span class="metric-n">88%</span><div class="metric-name">ETA Accuracy</div><div class="metric-desc">Route ETAs accurate within ±10 minutes, validating the AI traffic layer</div></div>
+        <div class="metric-cell"><span class="metric-n">3.2×</span><div class="metric-name">Mode Adoption Ratio</div><div class="metric-desc">Average transport modes used per user per week — multimodal engagement signal</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RISKS + REFLECTION ── -->
+<section id="risks-reflection" class="section-wrap bg-white-sec">
+  <div class="max-w">
+    <div class="grid-2 reveal">
+      <div>
+        <div class="eyebrow">Risk Register</div>
+        <h2 class="section-title">Anticipating <em>challenges</em></h2>
+        <div class="risk-items">
+          <div class="risk-item"><span class="risk-sev sev-hi">High</span><div><h4>API Reliability from Transport Providers</h4><p>Pathao, DMTCL APIs may have downtime. Mitigation: graceful fallback to Google Maps + manual mode selection.</p></div></div>
+          <div class="risk-item"><span class="risk-sev sev-hi">High</span><div><h4>Informal Mode Coverage Gap</h4><p>Rickshaws lack digital tracking. Mitigation: community reporting fills gap in V1; GPS integration roadmapped for V2.</p></div></div>
+          <div class="risk-item"><span class="risk-sev sev-med">Med</span><div><h4>Community Cold Start Problem</h4><p>Traffic community is useless without users. Mitigation: seed with Google Maps data; incentivize early reporters with wallet credits.</p></div></div>
+          <div class="risk-item"><span class="risk-sev sev-med">Med</span><div><h4>Regulatory Shifts in Ride-sharing / MFS</h4><p>Bangladesh ride-share laws evolving. Mitigation: design API abstraction layer to swap providers without core app changes.</p></div></div>
+          <div class="risk-item"><span class="risk-sev sev-lo">Low</span><div><h4>User Adoption vs. Pathao/Uber Habit</h4><p>Strong incumbents. Mitigation: Proyan's value is multimodal + safety + docs — a category existing apps don't compete in.</p></div></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="eyebrow">PM Reflection</div>
+        <h2 class="section-title">Key <em>takeaways</em></h2>
+        <div class="reflection-card">
+          <div class="learning-items">
+            <div class="learning-item"><div class="l-num">01</div><div><h4>Real data changes every decision</h4><p>Dhaka's speed dropping from 21 to 7 km/h reframed the problem from "inconvenience" to "economic crisis." Numbers make every product decision sharper.</p></div></div>
+            <div class="learning-item"><div class="l-num">02</div><div><h4>Constraints are design inputs</h4><p>Rickshaws have no APIs. BRTA is still digitizing. Building around infrastructure constraints rather than against them was the key to a credible MVP.</p></div></div>
+            <div class="learning-item"><div class="l-num">03</div><div><h4>Timing is a product feature</h4><p>MFS adoption, metro rail launch, and BRTA digitization all happening in the same window creates a rare market moment.</p></div></div>
+            <div class="learning-item"><div class="l-num">04</div><div><h4>Language unlocks honesty</h4><p>Conducting interviews in Bangla surfaced nuances missed in English — like how commuters rely on Facebook groups for bus schedules.</p></div></div>
+          </div>
+          <div class="reflection-quote">
+            <blockquote>"All‑in‑one is not just a convenience — it's a necessity. Local context — government integration, community trust — is everything."</blockquote>
+            <cite>— Ragib Ahsan, Product Manager</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROTOTYPE EMBED ── -->
+<section id="prototype" class="section-wrap bg-surface" style="text-align:center;">
+  <div class="max-w reveal">
+    <div class="eyebrow" style="justify-content:center;">Interactive Prototype</div>
+    <h2 class="section-title" style="text-align:center;">Try the <em>interactive prototype</em></h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto 2rem;max-width:460px;">Click through the real Figma prototype — covering Move Easy, SOS Services, and Proyan Wallet core flows.</p>
+    <div id="phone-mockup" class="prototype-frame">
+      <iframe src="https://earth-east-81327686.figma.site" width="390" height="780" style="border-radius:40px;border:none;display:block;" title="Proyan Interactive Prototype" allowfullscreen></iframe>
+    </div>
+    <p style="font-size:.78rem;color:var(--text-soft);margin-top:1rem;">
+      Interactive prototype on Figma ·
+      <a href="https://earth-east-81327686.figma.site" target="_blank" style="color:var(--blue-bright);">Open full screen →</a>
+    </p>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="cta-badge">PM Portfolio · Ragib Ahsan</div>
+    <h2 class="cta-h">Read the full PRD</h2>
+    <p class="cta-sub">Download the complete Product Requirements Document — all user stories, acceptance criteria, wireframe links, and full feature specification.</p>
+    <div class="cta-btns">
+      <button onclick="openPRD()" class="btn-primary" style="cursor:pointer;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        View PRD
+      </button>
+      <button onclick="openMiro()" class="btn-outline-white" style="cursor:pointer;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        View Wireframe
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">Proyan <span>প্রয়ান</span></div>
+  <div class="footer-copy">Product case study by Ragib Ahsan · 2026</div>
+  <div class="footer-links">
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#features">Features</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#phone-mockup">Prototype</a>
+  </div>
+</footer>
+
+<!-- ── PRD MODAL ── -->
+<div class="modal-overlay" id="prdModal">
+  <div class="modal-box" style="max-height:90vh;display:flex;flex-direction:column;">
+    <div class="modal-header">
+      <span class="modal-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-right:6px;vertical-align:middle;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Proyan PRD
+      </span>
+      <button class="modal-close" onclick="closeModal('prdModal')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" style="flex:1;overflow:auto;">
+      <iframe src="./prd.pdf" width="100%" height="700" style="min-height:60vh;" title="Proyan PRD"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ── MIRO MODAL ── -->
+<div class="modal-overlay" id="miroModal">
+  <div class="modal-box" style="max-height:90vh;display:flex;flex-direction:column;">
+    <div class="modal-header">
+      <span class="modal-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-right:6px;vertical-align:middle;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        Proyan Wireframes — Miro
+      </span>
+      <button class="modal-close" onclick="closeModal('miroModal')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <iframe src="https://miro.com/app/board/uXjVNdAYg64=/?share_link_id=487458184135" width="100%" height="700" style="min-height:60vh;" title="Proyan Wireframes"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── SCROLL PROGRESS BAR ── */
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+}, {passive:true});
+
+/* ── SCROLL REVEALS ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, {threshold: 0.07});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ── STAGGER GRID CHILDREN ── */
+document.querySelectorAll('.feat-grid,.persona-grid,.problem-cards,.metrics-grid,.roadmap-track').forEach(grid => {
+  [...grid.children].forEach((c, i) => {
+    c.classList.add('reveal');
+    c.style.transitionDelay = (i * 0.09) + 's';
+    obs.observe(c);
+  });
+});
+
+/* ── ANIMATED SURVEY BARS ── */
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.sbar-fill').forEach(f => {
+        setTimeout(() => f.classList.add('animate'), 100);
+      });
+    }
+  });
+}, {threshold: 0.2});
+document.querySelectorAll('.survey-box').forEach(el => barObs.observe(el));
+
+/* ── ANIMATED COUNTERS ── */
+function animateCounter(el, target, duration = 1200) {
+  let start = null;
+  const step = (ts) => {
+    if (!start) start = ts;
+    const progress = Math.min((ts - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target);
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.done) {
+      e.target.dataset.done = '1';
+      animateCounter(e.target, parseInt(e.target.dataset.target));
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+
+/* ── TIMELINE LINE DRAW ── */
+const tlObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('animate'); });
+}, {threshold: 0.1});
+const tl = document.getElementById('timeline');
+if (tl) tlObs.observe(tl);
+
+/* ── TYPING EFFECT ── */
+const phrases = ['Where to?', 'Farmgate via MRT...', 'Motijheel, fastest route', 'Mirpur 10 → Gulshan'];
+let pi = 0, ci = 0, deleting = false;
+const typeEl = document.getElementById('typeTarget');
+function type() {
+  if (!typeEl) return;
+  const phrase = phrases[pi];
+  if (!deleting) {
+    typeEl.textContent = phrase.slice(0, ++ci);
+    if (ci === phrase.length) { deleting = true; setTimeout(type, 1600); return; }
+  } else {
+    typeEl.textContent = phrase.slice(0, --ci);
+    if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); return; }
+  }
+  setTimeout(type, deleting ? 45 : 75);
+}
+setTimeout(type, 2000);
+
+/* ── PARALLAX HERO ORBS ── */
+window.addEventListener('mousemove', e => {
+  const rx = (e.clientX / window.innerWidth - .5) * 18;
+  const ry = (e.clientY / window.innerHeight - .5) * 18;
+  const g1 = document.querySelector('.hero-glow1');
+  const g2 = document.querySelector('.hero-glow2');
+  if (g1) g1.style.transform = `translate(${rx}px,${ry}px)`;
+  if (g2) g2.style.transform = `translate(${-rx}px,${-ry}px)`;
+}, {passive:true});
+
+/* ── ACTIVE NAV HIGHLIGHT ── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const secObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + e.target.id ? 'var(--white)' : '';
+      });
+    }
+  });
+}, {threshold: 0.4});
+sections.forEach(s => secObs.observe(s));
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+}, {passive:true});
+
+/* ── MODAL HELPERS ── */
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function openPRD() {
+  document.getElementById('prdModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openMiro() {
+  document.getElementById('miroModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+/* close on backdrop click */
+document.getElementById('prdModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal('prdModal');
+});
+document.getElementById('miroModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal('miroModal');
+});
+
+/* close on Escape */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal('prdModal');
+    closeModal('miroModal');
+    const m = document.getElementById('mobileMenu');
+    if (m.classList.contains('open')) { m.classList.remove('open'); document.body.style.overflow = ''; }
+  }
+});
+
+/* ── MOBILE MENU ── */
+function toggleMenu() {
+  const m = document.getElementById('mobileMenu');
+  const isOpen = m.classList.toggle('open');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+</script>
+</body>
+</html>
