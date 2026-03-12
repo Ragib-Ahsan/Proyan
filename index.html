@@ -886,26 +886,200 @@ footer{
 .modal-body{padding:0;}
 .modal-body iframe{display:block;width:100%;border:none;}
 
-/* ── RESPONSIVE ── */
-@media(max-width:1000px){
-  .hero-inner{grid-template-columns:1fr;padding-top:1rem;}
-  .hero-right{display:none;}
-  .grid-2,.role-grid{grid-template-columns:1fr;}
-  #my-role .role-grid{grid-template-columns:1fr;}
+/* ═══════════════════════════════════════
+   RESPONSIVE — TABLET  (≤1024px)
+═══════════════════════════════════════ */
+@media(max-width:1024px){
+  /* Nav */
+  .nav-links{display:none;}
+  .nav-cta-group .btn-teal:not(:last-of-type){display:none;} /* hide PRD+Wireframe, keep Prototype + hamburger */
+
+  /* Hero */
+  .hero-inner{grid-template-columns:1fr 1fr;gap:2rem;padding-top:1rem;}
+  .hero-h1{font-size:clamp(2rem,4vw,3rem);}
+
+  /* Grids */
+  .grid-2,.role-grid,#my-role .role-grid,
+  #research .grid-2,#arch-tradeoff .grid-2,#risks-reflection .grid-2{grid-template-columns:1fr;}
   .grid-3,.problem-cards,.persona-grid,.feat-grid{grid-template-columns:1fr 1fr;}
   .grid-4,.roadmap-track,.metrics-grid{grid-template-columns:1fr 1fr;}
-  nav .nav-links{display:none;}
-  .fp-grid{grid-template-columns:1fr!important;}
-  #research .grid-2{grid-template-columns:1fr;}
-  #arch-tradeoff .grid-2{grid-template-columns:1fr;}
-  #risks-reflection .grid-2{grid-template-columns:1fr;}
+  .fp-grid{grid-template-columns:1fr 1fr!important;}
+
+  /* Section spacing */
+  .section-wrap{padding:4rem 1.5rem;}
 }
-@media(max-width:640px){
-  .grid-3,.problem-cards,.persona-grid,.feat-grid,.grid-4,.roadmap-track,.metrics-grid{grid-template-columns:1fr;}
-  .stats-strip-inner{gap:1.2rem;}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — TABLET PORTRAIT  (≤768px)
+═══════════════════════════════════════ */
+@media(max-width:768px){
+  /* Nav — hide all CTA text buttons, keep hamburger only */
+  .nav-cta-group .btn-teal,
+  .nav-cta-group .btn-nav-outline{display:none;}
+  .hamburger{display:flex;}
+  .nav-inner{padding:.6rem 1rem;}
+
+  /* Hero — stack */
+  .hero-inner{grid-template-columns:1fr;gap:2.5rem;padding:1rem 1.5rem 3rem;}
+  .hero-right{display:flex;justify-content:center;}
+  .hero-right > div{max-width:100%;}
+  .hero-h1{font-size:clamp(2rem,6vw,2.8rem);}
+  .hero-sub{font-size:.95rem;}
+  .hero-btns{flex-direction:column;gap:.75rem;}
+  .hero-btns a,.hero-btns button{justify-content:center;width:100%;}
+  .hero-trust{flex-wrap:wrap;gap:1rem;}
+
+  /* Stats strip */
+  .stats-strip-inner{flex-wrap:wrap;justify-content:center;gap:1.5rem;}
+  .strip-item{min-width:140px;flex:0 0 calc(50% - 1rem);}
   .strip-div{display:none;}
-  .matrix{height:260px;}
-  footer{flex-direction:column;text-align:center;}
+  .strip-n{font-size:1.6rem;}
+
+  /* Section headings */
+  .section-title{font-size:clamp(1.5rem,4vw,2rem);}
+  .section-wrap{padding:3.5rem 1.2rem;}
+
+  /* Grids → single col */
+  .grid-3,.problem-cards,.persona-grid,.feat-grid,
+  .fp-grid,.grid-4,.roadmap-track,.metrics-grid{grid-template-columns:1fr!important;}
+
+  /* Role */
+  #my-role .role-grid{grid-template-columns:1fr;}
+  .role-quote-card{padding:1.8rem;}
+  .kpi-grid{grid-template-columns:1fr 1fr;}
+
+  /* Features */
+  #features .feat-grid{grid-template-columns:1fr 1fr;}
+
+  /* Research */
+  #research .grid-2{grid-template-columns:1fr;}
+
+  /* Matrix */
+  .matrix{height:240px;}
+  .mat-ax-x,.mat-ax-y{display:none;}
+
+  /* Arch */
+  #arch-tradeoff .grid-2,#risks-reflection .grid-2{grid-template-columns:1fr;}
+  .arch-layer{flex-wrap:wrap;gap:.5rem;}
+
+  /* Roadmap track → 2 col */
+  .roadmap-track{grid-template-columns:1fr 1fr;}
+
+  /* Metrics → 2 col */
+  .metrics-grid{grid-template-columns:1fr 1fr;}
+
+  /* Prototype frame */
+  .prototype-frame{padding:.4rem;}
+  .prototype-frame iframe{width:320px;height:640px;}
+
+  /* CTA */
+  .cta-btns{flex-direction:column;align-items:center;}
+  .cta-btns button,.cta-btns a{width:100%;max-width:320px;justify-content:center;}
+
+  /* Footer */
+  footer{flex-direction:column;text-align:center;gap:1.2rem;}
+  .footer-links{flex-wrap:wrap;justify-content:center;gap:1rem;}
+
+  /* Modal */
+  .modal-box{max-width:100%;margin:.5rem;}
+  .modal-body iframe{height:60vh;}
+
+  /* Fragmentation table */
+  .frag-head{display:none;}
+  .frag-row{flex-wrap:wrap;gap:.4rem;padding:.75rem 1rem;}
+  .frag-badge{font-size:.6rem;}
+
+  /* Survey */
+  .survey-box{padding:1.5rem;}
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — MOBILE  (≤480px)
+═══════════════════════════════════════ */
+@media(max-width:480px){
+  /* Nav */
+  .nav-inner{border-radius:10px;padding:.55rem .9rem;}
+  .nav-logo-text{font-size:1rem;}
+  .nav-logo-bn{display:none;}
+
+  /* Hero */
+  #hero{padding-top:4.5rem;}
+  .hero-inner{padding:.5rem 1rem 2.5rem;}
+  .hero-h1{font-size:clamp(1.8rem,7vw,2.4rem);}
+  .hero-h1 .bn{font-size:.5em;}
+  .hero-badge{font-size:.62rem;padding:.28rem .75rem;}
+  .hero-sub{font-size:.88rem;}
+  .hero-trust{gap:.8rem;}
+  .hero-trust-item{font-size:.72rem;}
+  .hero-right > div{border-radius:14px;}
+
+  /* Stats */
+  .strip-item{flex:0 0 100%;}
+  .strip-n{font-size:1.5rem;}
+  .strip-l{font-size:.7rem;}
+
+  /* Section */
+  .section-wrap{padding:3rem 1rem;}
+  .section-title{font-size:1.5rem;}
+  .section-sub{font-size:.88rem;}
+  .eyebrow{font-size:.62rem;}
+
+  /* Cards */
+  .problem-card,.persona-card,.fp-card,.feat-cell{padding:1.3rem;}
+  .role-quote-card{padding:1.4rem;}
+  .role-quote-card blockquote{font-size:.9rem;}
+
+  /* Timeline */
+  .tl-dot{width:30px;height:30px;font-size:.62rem;}
+  .tl-step h4{font-size:.85rem;}
+  .tl-step p{font-size:.78rem;}
+
+  /* Features — single col on small mobile */
+  #features .feat-grid{grid-template-columns:1fr;}
+
+  /* MVP */
+  .mvp-label{font-size:.8rem;}
+  .impact-dots{display:none;}
+
+  /* Roadmap → single col */
+  .roadmap-track,.metrics-grid{grid-template-columns:1fr;}
+  .rm-phase{padding:1.3rem 1.2rem;}
+
+  /* Risk items */
+  .risk-item{flex-wrap:wrap;gap:.5rem;}
+
+  /* Prototype */
+  .prototype-frame iframe{width:290px;height:580px;}
+
+  /* CTA */
+  .cta-h{font-size:1.7rem;}
+  .cta-sub{font-size:.87rem;}
+
+  /* Footer */
+  footer{padding:1.5rem 1rem;}
+  .footer-links{gap:.75rem;}
+
+  /* Frag table */
+  .frag-row{padding:.65rem .9rem;}
+  .frag-info b{font-size:.78rem;}
+  .frag-info small{display:none;}
+
+  /* Scroll cue */
+  .scroll-cue{display:none;}
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE  (≤360px)
+═══════════════════════════════════════ */
+@media(max-width:360px){
+  .hero-h1{font-size:1.65rem;}
+  .section-title{font-size:1.35rem;}
+  .prototype-frame iframe{width:260px;height:520px;}
+  .kpi-grid{grid-template-columns:1fr;}
+  .nav-logo-mark{width:38px;height:38px;}
+  .nav-logo-mark img{width:38px;height:38px;}
+  .strip-n{font-size:1.3rem;}
+  .hero-right{display:none;}
 }
 </style>
 </head>
@@ -965,8 +1139,18 @@ footer{
     <a href="#phone-mockup" onclick="toggleMenu()">Prototype</a>
   </nav>
   <div class="mob-nav-footer">
-    <button onclick="toggleMenu();openPRD();" class="btn-teal" style="justify-content:center;width:100%;cursor:pointer;">View PRD</button>
-    <button onclick="toggleMenu();openMiro();" class="btn-teal" style="justify-content:center;width:100%;cursor:pointer;">View Wireframe</button>
+    <button onclick="toggleMenu();openPRD();" class="btn-teal" style="justify-content:center;width:100%;cursor:pointer;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      View PRD
+    </button>
+    <button onclick="toggleMenu();openMiro();" class="btn-teal" style="justify-content:center;width:100%;cursor:pointer;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+      View Wireframe
+    </button>
+    <a href="#phone-mockup" onclick="toggleMenu();" class="btn-teal" style="justify-content:center;width:100%;cursor:pointer;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      View Interactive Prototype
+    </a>
   </div>
 </div>
 
@@ -979,7 +1163,8 @@ footer{
     <div>
       <div class="hero-badge"><span class="hero-badge-dot"></span>Urban Mobility · PM Portfolio · Bangladesh</div>
       <h1 class="hero-h1">
-        One app for<br><span class="accent">everyday comute</span>
+        One app for<br>every commute<br>in <span class="accent">Dhaka</span>
+        <span class="bn">প্রয়ান — প্রতিদিনের যাত্রা, এক জায়গায়</span>
       </h1>
       <p class="hero-sub">Multimodal route planning, AI traffic intelligence, SOS safety, integrated MFS payments, and vehicle management — all in a single platform built for Bangladesh.</p>
       <div class="hero-btns">
@@ -1115,7 +1300,7 @@ footer{
       <div class="frag-head"><span>Transport Mode</span><span>Current App(s) — No Integration</span></div>
       <div class="frag-row">
         <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00C8B0" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="8" width="18" height="10" rx="2"/><path d="M7 8V6a2 2 0 014 0v2M13 8V6a2 2 0 014 0v2"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="16.5" cy="18" r="1.5"/></svg></div>
-        <div class="frag-info"><b>MRT Line-6 (Metro)</b><small>Uttara to Motijheel — 17 stations</small></div><span class="frag-badge">No registered App as Pass</span>
+        <div class="frag-info"><b>MRT Line-6 (Metro)</b><small>Uttara to Motijheel — 17 stations</small></div><span class="frag-badge">DMTCL App only</span>
       </div>
       <div class="frag-row">
         <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A9BFF" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M6 7V5a2 2 0 014 0v2M14 7V5a2 2 0 014 0v2"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="17.5" cy="18" r="1.5"/></svg></div>
@@ -1123,19 +1308,19 @@ footer{
       </div>
       <div class="frag-row">
         <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFB800" stroke-width="1.8" stroke-linecap="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M15 6l-3 5H8l-3 6M10 6h5l3 5"/></svg></div>
-        <div class="frag-info"><b>Bike Ride-hailing</b><small>Pathao (60–70% market), Uber</small></div><span class="frag-badge">2 Apps</span>
+        <div class="frag-info"><b>Bike Ride-hailing</b><small>Pathao holds 60–70% market</small></div><span class="frag-badge">Pathao / Shohoz</span>
       </div>
       <div class="frag-row">
         <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v5h-2"/><circle cx="15.5" cy="18.5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/></svg></div>
-        <div class="frag-info"><b>Car Ride-hailing</b><small>Uber, Pathao, inDrive</small></div><span class="frag-badge">3 apps</span>
+        <div class="frag-info"><b>Car Ride-hailing</b><small>Uber, Obhai, inDrive</small></div><span class="frag-badge">3 separate apps</span>
       </div>
       <div class="frag-row">
         <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00C896" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
-        <div class="frag-info"><b>Rickshaw / CNG</b><small>~38% modal share — largest in city,- Uber, Obhai</small></div><span class="frag-badge">2 apps</span>
+        <div class="frag-info"><b>Rickshaw / CNG</b><small>~38% modal share — largest in city</small></div><span class="frag-badge">No app exists</span>
       </div>
       <div class="frag-row">
         <div class="frag-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
-        <div class="frag-info"><b>Payment</b><small>bKash (40% MFS share), Nagad, Rocket, PathaoPay</small></div><span class="frag-badge">3 MFS apps + cash</span>
+        <div class="frag-info"><b>Payment</b><small>bKash (40% MFS share), Nagad, Rocket</small></div><span class="frag-badge">3 MFS apps + cash</span>
       </div>
       <div class="frag-row" style="background:rgba(0,200,176,.04);">
         <div class="frag-ico" style="background:rgba(0,200,176,.1);">
@@ -1540,6 +1725,10 @@ footer{
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
         View Wireframe
       </button>
+      <a href="#phone-mockup" class="btn-outline-white">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        View Interactive Prototype
+      </a>
     </div>
   </div>
 </section>
